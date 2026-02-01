@@ -346,4 +346,25 @@ footer{
 .memBody{
   margin-top: 14px;
 }
+/* Avatar (Telegram style) */
+.avatar-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar{
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 4px solid rgba(255,255,255,0.25);
+  box-shadow:
+    0 0 0 6px rgba(79,124,255,0.15),
+    0 20px 60px rgba(0,0,0,0.45);
+
+  background: rgba(255,255,255,0.05);
+}
+
 
