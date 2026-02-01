@@ -366,5 +366,56 @@ footer{
 
   background: rgba(255,255,255,0.05);
 }
+.memNameRow{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.memInput{
+  flex:1 1 220px;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  outline:none;
+}
+
+.memInput::placeholder{ color: rgba(234,241,255,.55); }
+
+.memRating{
+  margin-top:14px;
+  padding:12px;
+  border-radius:18px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.05);
+}
+
+.memRatingTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+}
+
+.memList{
+  margin:0;
+  padding-left:18px;
+  color:var(--text);
+}
+
+.memList li{
+  margin:8px 0;
+  color:var(--muted);
+  line-height:1.35;
+}
+
+.memList b{ color: var(--text); }
+
 
 
