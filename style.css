@@ -307,3 +307,43 @@ footer{
 }
 .bot-link:hover{opacity:.92}
 .note{margin-top:10px;font-size:14px;opacity:.85}
+.memHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.memToggle{
+  padding:12px 14px;
+  border-radius:16px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  font-weight: 900;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition:.18s;
+}
+
+.memToggle:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.09);
+}
+
+.memToggle .chev{
+  transition: transform .2s ease;
+  opacity:.8;
+}
+
+.memToggle[aria-expanded="true"] .chev{
+  transform: rotate(180deg);
+}
+
+.memBody{
+  margin-top: 14px;
+}
+
