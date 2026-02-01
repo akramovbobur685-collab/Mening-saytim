@@ -282,7 +282,38 @@ function showToast(text){
     clearBest(selLevel.value);
     showToast("Rekord tozalandi ✅");
   });
+// MEMORY TOGGLE (o'yinni ochish/yopish)
+(function(){
+  const btn = document.getElementById("memToggle");
+  const body = document.getElementById("memBody");
+  if(!btn || !body) return;
+
+  let inited = false;
+
+  btn.addEventListener("click", ()=>{
+    const isOpen = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", String(!isOpen));
+
+    if(isOpen){
+      body.hidden = true;
+    } else {
+      body.hidden = false;
+
+      // birinchi marta ochilganda o'yinni ishga tushiramiz
+      if(!inited){
+        inited = true;
+
+        // agar sening memory game kodi app.js ichida bo'lsa, u avtomat ishlaydi.
+        // Lekin biz grid hidden bo'lganida ishlamagan bo'lishi mumkin,
+        // shuning uchun qayta ishga tushirish tugmasini bosamiz:
+        const startBtn = document.getElementById("memStart");
+        if(startBtn) startBtn.click();
+      }
+    }
+  });
+})();
 
   setBest(selLevel.value);
   newGame();
 })();
+
