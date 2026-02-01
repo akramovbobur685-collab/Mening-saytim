@@ -4,355 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bobur Akramov</title>
-
-  <style>
-    :root{
-      --bg:#050811;
-      --text:#eaf1ff;
-      --muted:rgba(234,241,255,.78);
-      --stroke:rgba(255,255,255,.14);
-
-      --glass:rgba(255,255,255,.07);
-      --glass2:rgba(255,255,255,.05);
-
-      --brand:#4f7cff;
-      --brand2:#8b5cf6;
-      --ok:#22c55e;
-
-      --radius:22px;
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(900px 520px at 15% 12%, rgba(79,124,255,.28), transparent 60%),
-        radial-gradient(900px 520px at 85% 18%, rgba(139,92,246,.24), transparent 60%),
-        radial-gradient(700px 480px at 50% 110%, rgba(34,197,94,.14), transparent 62%),
-        radial-gradient(1200px 900px at 50% -10%, rgba(255,255,255,.05), transparent 60%),
-        var(--bg);
-      overflow-x:hidden;
-    }
-
-    /* background blobs */
-    .blob{
-      position:fixed; inset:auto;
-      width:520px; height:520px; border-radius:50%;
-      filter: blur(55px);
-      opacity:.28;
-      z-index:-2;
-      animation: floaty 10s ease-in-out infinite;
-    }
-    .b1{left:-160px; top:-180px; background:rgba(79,124,255,.9)}
-    .b2{right:-180px; top:-120px; background:rgba(139,92,246,.9); animation-duration: 12s;}
-    .b3{left:10%; bottom:-220px; background:rgba(34,197,94,.8); animation-duration: 14s;}
-    @keyframes floaty{
-      0%,100%{transform:translate(0,0) scale(1)}
-      50%{transform:translate(30px,18px) scale(1.06)}
-    }
-
-    .wrap{max-width:1050px;margin:0 auto;padding:22px}
-
-    .glass{
-      background:linear-gradient(180deg,var(--glass),var(--glass2));
-      border:1px solid var(--stroke);
-      border-radius:var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      position:relative;
-      overflow:hidden;
-    }
-    .glass::after{
-      content:"";
-      position:absolute; inset:-2px;
-      background:radial-gradient(700px 260px at 28% 0%, rgba(255,255,255,.14), transparent 60%);
-      pointer-events:none;
-    }
-
-    /* top bar */
-    .top{
-      display:flex;align-items:center;justify-content:space-between;
-      gap:14px;flex-wrap:wrap;
-      padding:12px 4px 6px;
-    }
-    .brand{
-      display:flex;align-items:center;gap:10px;
-      font-weight:900;letter-spacing:.4px;
-    }
-    .pill{
-      font-size:12px;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.05);
-      color:var(--muted);
-    }
-    .nav{display:flex;gap:10px;flex-wrap:wrap}
-    .nav a{
-      text-decoration:none;color:var(--muted);
-      padding:10px 12px;border-radius:14px;border:1px solid transparent;
-      transition:.18s;
-    }
-    .nav a:hover{
-      color:var(--text);
-      border-color:var(--stroke);
-      background:rgba(255,255,255,.06);
-      transform:translateY(-1px);
-    }
-
-    /* hero */
-    .hero{padding:22px}
-    .heroGrid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      position:relative;
-    }
-    @media (max-width:900px){
-      .heroGrid{grid-template-columns:1fr}
-    }
-    h1{
-      margin:0 0 10px;
-      font-size:40px; line-height:1.08;
-    }
-    .lead{margin:0 0 16px;color:var(--muted);line-height:1.6}
-    .tiny{font-size:12px;color:rgba(234,241,255,.6)}
-
-    /* sections */
-    .section{margin-top:18px;padding:18px}
-    .section h2{margin:0 0 8px;font-size:24px}
-    .sub{margin:0 0 10px;color:var(--muted);line-height:1.55}
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:12px;
-      margin-top:10px;
-    }
-    .tile{
-      border-radius:20px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.05);
-      padding:16px;
-      transition:.18s;
-      position:relative;
-      overflow:hidden;
-    }
-    .tile:hover{transform:translateY(-2px); background:rgba(255,255,255,.08)}
-    .tile h3{margin:0 0 8px}
-    .tile p{margin:0;color:var(--muted);line-height:1.55}
-    .tag{
-      display:inline-flex;align-items:center;gap:8px;
-      font-size:12px;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.05);
-      color:var(--muted);
-      margin-bottom:10px;
-    }
-
-    /* socials */
-    .socials{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
-    .sbtn{
-      display:flex;align-items:center;gap:12px;
-      padding:14px 14px;
-      border-radius:20px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.06);
-      text-decoration:none;
-      color:var(--text);
-      transition:.18s;
-    }
-    .sbtn:hover{transform:translateY(-2px); background:rgba(255,255,255,.09)}
-    .ico{
-      width:42px;height:42px;border-radius:14px;
-      display:grid;place-items:center;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.05);
-      flex:0 0 auto;
-    }
-    .smeta{display:flex;flex-direction:column;gap:3px}
-    .smeta b{font-size:16px}
-    .smeta span{font-size:13px;color:var(--muted)}
-
-    footer{
-      margin:18px 0 10px;
-      color:rgba(234,241,255,.62);
-      font-size:14px;
-      padding:6px 2px;
-    }
-
-    /* ---- HERO SLIDER (RAMKASIZ) ---- */
-    .heroSlider{
-      padding:0;
-      background:transparent;
-      border:0;
-      box-shadow:none;
-      position:relative;
-      overflow:visible;
-    }
-    .heroSlider::after{display:none;}
-    .slideBox{
-      position:relative;
-      border-radius:18px;
-      overflow:hidden;
-      aspect-ratio: 1 / 1; /* kvadrat */
-      max-height:380px;
-      border:0;
-      background:transparent;
-    }
-    .slideBox img{
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-      opacity:0;
-      transform:scale(1.02);
-      transition:opacity .55s ease, transform .8s ease;
-      position:absolute; inset:0;
-    }
-    .slideBox img.active{
-      opacity:1;
-      transform:scale(1);
-    }
-    .sliderDots{
-      display:flex; gap:8px; flex-wrap:wrap;
-      justify-content:center;
-      margin-top:10px;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.08);
-      opacity:.7;
-      cursor:pointer;
-      padding:0;
-    }
-    .dot.active{
-      opacity:1;
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      border:0;
-    }
-
-    /* -------- MEMORY GAME PRO (sound + animation + levels) -------- */
-    .memProTop{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-      margin-top:12px;
-    }
-    .memSelect{
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      outline:none;
-    }
-    .memBtn{
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      font-weight:900;
-      cursor:pointer;
-      transition:.16s;
-    }
-    .memBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
-    .memGrid{
-      display:grid;
-      gap:12px;
-      margin-top:12px;
-    }
-    .memGrid.cols-3{grid-template-columns:repeat(3,1fr)}
-    .memGrid.cols-4{grid-template-columns:repeat(4,1fr)}
-    .memGrid.cols-5{grid-template-columns:repeat(5,1fr)}
-    @media(max-width:520px){
-      .memGrid.cols-5{grid-template-columns:repeat(4,1fr)}
-    }
-
-    .memCard{
-      aspect-ratio:1/1;
-      border-radius:18px;
-      position:relative;
-      cursor:pointer;
-      user-select:none;
-      perspective: 900px;
-    }
-    .memCard[aria-disabled="true"]{cursor:default; opacity:.72}
-    .memInner{
-      position:absolute; inset:0;
-      border-radius:18px;
-      transform-style:preserve-3d;
-      transition: transform .38s ease;
-    }
-    .memFace{
-      position:absolute; inset:0;
-      border-radius:18px;
-      border:1px solid var(--stroke);
-      backface-visibility:hidden;
-      display:grid;
-      place-items:center;
-    }
-    .memFront{
-      background:rgba(255,255,255,.06);
-    }
-    .memFront::after{
-      content:"";
-      width:34%;
-      height:34%;
-      border-radius:14px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), rgba(255,255,255,.05));
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 12px 35px rgba(0,0,0,.28);
-    }
-    .memBack{
-      transform: rotateY(180deg);
-      background: linear-gradient(135deg, rgba(79,124,255,.16), rgba(139,92,246,.14));
-    }
-    .memEmoji{
-      font-size:32px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
-    }
-    .memCard.open .memInner{transform: rotateY(180deg)}
-    .memCard.done .memInner{transform: rotateY(180deg)}
-    .memCard.done .memBack{
-      box-shadow: 0 0 0 2px rgba(34,197,94,.35), 0 18px 55px rgba(34,197,94,.12);
-    }
-    .memCard.match .memBack{animation: memGlow .55s ease}
-    @keyframes memGlow{
-      0%{box-shadow:0 0 0 0 rgba(34,197,94,.0)}
-      50%{box-shadow:0 0 0 6px rgba(34,197,94,.22), 0 18px 55px rgba(34,197,94,.12)}
-      100%{box-shadow:0 0 0 2px rgba(34,197,94,.35)}
-    }
-    .memCard.wrong{animation: memShake .32s ease}
-    @keyframes memShake{
-      0%{transform:translateX(0)}
-      25%{transform:translateX(-6px)}
-      50%{transform:translateX(6px)}
-      75%{transform:translateX(-4px)}
-      100%{transform:translateX(0)}
-    }
-
-    /* toast */
-    .toast{
-      position:fixed; right:16px; bottom:16px;
-      display:none;
-      padding:12px 14px;
-      border-radius:16px;
-      border:1px solid var(--stroke);
-      background:rgba(12,19,40,.85);
-      color:var(--text);
-      box-shadow: 0 18px 50px rgba(0,0,0,.45);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      max-width:320px;
-      z-index: 50;
-    }
-    .okdot{display:inline-block;width:10px;height:10px;border-radius:999px;background:var(--ok);margin-right:8px}
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -369,28 +21,22 @@
       </div>
       <nav class="nav">
         <a href="#portfolio">Portfolio</a>
-        <a href="#memory">Memory</a>
+        <a href="#memory">Hotira o'yini</a>
         <a href="#aloqa">Aloqa</a>
       </nav>
     </div>
 
-    <!-- HERO: rasmlar (ramkasiz) + bio -->
+    <!-- HERO -->
     <section class="glass hero" id="home">
       <div class="heroGrid">
-        <!-- Rasmlar -->
+        <!-- Slider -->
         <div class="heroSlider">
-          <h3 style="margin:0 0 10px;"></h3>
-
           <div class="slideBox" id="slideBox">
             <img src="img/me1.jpg" alt="Bobur 1" class="active">
             <img src="img/me2.jpg" alt="Bobur 2">
           </div>
-
           <div class="sliderDots" id="sliderDots"></div>
-
-          <div class="tiny" style="margin-top:8px">
-          
-          </div>
+          <div class="tiny" style="margin-top:8px">Rasmlar avtomatik almashadi • Telefon/PC mos</div>
         </div>
 
         <!-- Bio -->
@@ -406,8 +52,9 @@
             Qiziqishlarim: sayt yaratish, Telegram botlari va chet tilini o‘rganish.
           </p>
 
-          
           <div class="tiny" style="margin-top:10px">
+            Portfolio kartalariga bosing — alohida o‘rgatuvchi sahifa ochiladi.
+          </div>
         </div>
       </div>
     </section>
@@ -415,28 +62,30 @@
     <!-- Portfolio -->
     <section class="glass section" id="portfolio">
       <h2>Portfolio</h2>
-      <p class="sub">Hozircha demo kartalar. Keyin real loyihalar (link, GitHub) qo‘shamiz.</p>
+      <p class="sub">Demo kartalar. Hozir o‘rgatuvchi sahifalarga bog‘langan.</p>
 
       <div class="grid">
-        <div class="tile">
+        <a class="tile" href="mini-landing.html">
           <div class="tag">📌 Loyiha #1</div>
           <h3>Mini landing</h3>
-          <p>Yengil, tez ochiladigan bir sahifali sayt.</p>
-        </div>
-        <div class="tile">
+          <p>Yengil, tez ochiladigan bir sahifali sayt + hosting (GitHub Pages) tushuntirish.</p>
+        </a>
+
+        <a class="tile" href="telegram-bot.html">
           <div class="tag">📌 Loyiha #2</div>
           <h3>Telegram bot</h3>
-          <p>Buyurtma / ro‘yxatdan o‘tish / admin panel.</p>
-        </div>
-        <div class="tile">
+          <p>Bot yaratish, kompyuterda ishlatish, 24/7 serverga joylash + real bot: ustaxizmati_bot.</p>
+        </a>
+
+        <a class="tile" href="#aloqa">
           <div class="tag">📌 Loyiha #3</div>
           <h3>Talabalar uchun</h3>
-          <p>Kurs ishi, konspekt, testlar bo‘yicha yordam loyihasi.</p>
-        </div>
+          <p>Kurs ishi, konspekt va testlar bo‘yicha yordam (hozircha kontaktga yo‘naltirilgan).</p>
+        </a>
       </div>
     </section>
 
-    <!-- Hotirangizni tekshiring! -->
+    <!-- Hotira o'yini -->
     <section class="glass section" id="memory">
       <h2>🧠 Hotirangizni Mustahkamlang</h2>
       <p class="sub">Kartalarni ochib juftini toping. Darajani tanlang, rekordni yangilang 🔥</p>
@@ -457,8 +106,6 @@
       </div>
 
       <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
-
-      
     </section>
 
     <!-- Aloqa -->
@@ -467,35 +114,18 @@
       <p class="sub">Murojaat uchun</p>
 
       <div class="socials">
-        <!-- Telegram -->
         <a class="sbtn" href="https://t.me/bobur_akramoov" target="_blank" rel="noopener">
-          <span class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-              <path d="M21.8 4.6c.2-1-.7-1.8-1.7-1.4L2.9 10.2c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.8c.3 1 1.6 1.2 2.1.4l2.7-4.1 4.9 3.6c.8.6 2 .2 2.2-.9L21.8 4.6Z" stroke="currentColor" stroke-width="1.7"/>
-              <path d="M7.6 13.8 20 6.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-            </svg>
-          </span>
+          <span class="ico" aria-hidden="true">📨</span>
           <span class="smeta"><b>Telegram</b><span>@bobur_akramoov</span></span>
         </a>
 
-        <!-- YouTube -->
         <a class="sbtn" href="https://youtube.com/@akramovbobur4102" target="_blank" rel="noopener">
-          <span class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-              <path d="M21.6 7.2c.2.8.4 2 .4 4.8s-.2 4-.4 4.8c-.2.9-1 1.6-1.9 1.8-1.6.4-7.7.4-7.7.4s-6.1 0-7.7-.4c-.9-.2-1.7-.9-1.9-1.8C2.2 15.9 2 14.7 2 12s.2-3.9.4-4.8c.2-.9 1-1.6 1.9-1.8C5.9 5 12 5 12 5s6.1 0 7.7.4c.9.2 1.7.9 1.9 1.8Z" stroke="currentColor" stroke-width="1.7"/>
-              <path d="M10.3 9.7v4.6l4-2.3-4-2.3Z" fill="currentColor"/>
-            </svg>
-          </span>
+          <span class="ico" aria-hidden="true">▶️</span>
           <span class="smeta"><b>YouTube</b><span>@akramovbobur4102</span></span>
         </a>
 
-        <!-- Facebook -->
         <a class="sbtn" href="https://facebook.com/bobur_akramoov" target="_blank" rel="noopener">
-          <span class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-              <path d="M13.5 21v-7h2.4l.4-3h-2.8V9.3c0-.9.3-1.5 1.6-1.5h1.3V5.2c-.6-.1-1.6-.2-2.7-.2-2.7 0-4.5 1.6-4.5 4.5V11H6.6v3h2.6v7h4.3Z" fill="currentColor"/>
-            </svg>
-          </span>
+          <span class="ico" aria-hidden="true">f</span>
           <span class="smeta"><b>Facebook</b><span>@bobur_akramoov</span></span>
         </a>
       </div>
@@ -503,303 +133,12 @@
 
     <footer>
       © <span id="year"></span> Bobur Akramov — Liquid Glass UI ✨
-      <div class="tiny">Netlify’da ishlaydi • Telefon/PC responsive</div>
+      <div class="tiny">GitHub Pages’da ham ishlaydi • Responsive</div>
     </footer>
   </div>
 
   <div class="toast" id="toast"><span class="okdot"></span><span id="toastText"></span></div>
 
-  <script>
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Toast helper
-    function showToast(text){
-      const t = document.getElementById("toast");
-      document.getElementById("toastText").textContent = text;
-      t.style.display = "block";
-      clearTimeout(window.__to);
-      window.__to = setTimeout(()=> t.style.display = "none", 2400);
-    }
-
-    // ----- HERO SLIDER -----
-    (function(){
-      const box = document.getElementById("slideBox");
-      if(!box) return;
-
-      const imgs = Array.from(box.querySelectorAll("img"));
-      const dotsWrap = document.getElementById("sliderDots");
-      let idx = 0;
-      let timer = null;
-
-      function setActive(i){
-        idx = i;
-        imgs.forEach((im,k)=> im.classList.toggle("active", k===idx));
-        if(dotsWrap){
-          Array.from(dotsWrap.children).forEach((d,k)=> d.classList.toggle("active", k===idx));
-        }
-      }
-      function next(){ setActive((idx + 1) % imgs.length); }
-      function start(){ stop(); timer = setInterval(next, 2800); }
-      function stop(){ if(timer) clearInterval(timer); timer = null; }
-
-      if(dotsWrap){
-        dotsWrap.innerHTML = "";
-        imgs.forEach((_,k)=>{
-          const d = document.createElement("button");
-          d.type = "button";
-          d.className = "dot" + (k===0 ? " active" : "");
-          d.addEventListener("click", ()=>{ setActive(k); start(); });
-          dotsWrap.appendChild(d);
-        });
-      }
-
-      box.addEventListener("mouseenter", stop);
-      box.addEventListener("mouseleave", start);
-
-      let x0 = null;
-      box.addEventListener("touchstart", (e)=>{ x0 = e.touches[0].clientX; }, {passive:true});
-      box.addEventListener("touchend", (e)=>{
-        if(x0 === null) return;
-        const x1 = e.changedTouches[0].clientX;
-        const dx = x1 - x0;
-        if(Math.abs(dx) > 40){
-          if(dx < 0) setActive((idx+1)%imgs.length);
-          else setActive((idx-1+imgs.length)%imgs.length);
-          start();
-        }
-        x0 = null;
-      }, {passive:true});
-
-      start();
-    })();
-
-    // -------- MEMORY GAME PRO (levels + sound + animations) --------
-    (function(){
-      const grid = document.getElementById("memGrid");
-      if(!grid) return;
-
-      const elTime = document.getElementById("memTime");
-      const elBest = document.getElementById("memBest");
-      const selLevel = document.getElementById("memLevel");
-      const btnStart = document.getElementById("memStart");
-      const btnSound = document.getElementById("memSound");
-      const btnClear = document.getElementById("memClear");
-
-      const LEVELS = {
-        easy:   { cols: 3, rows: 4, pairs: 6 },
-        medium: { cols: 4, rows: 4, pairs: 8 },
-        hard:   { cols: 5, rows: 4, pairs: 10 },
-      };
-
-      const EMOJIS = ["🍎","🍌","🍇","🍓","🍍","🥝","🍒","🥥","🍉","🍑","🍋","🍊","🍪","🍩","🍫","🍿","🐱","🐶","🦊","🐼","🐸","🐵","🦁","🐯"];
-
-      let first = null;
-      let lock = false;
-      let doneCount = 0;
-
-      let startAt = 0;
-      let timer = null;
-
-      let soundOn = true;
-      let audioCtx = null;
-
-      function bestKey(level){ return `mem_best_${level}_v1`; }
-
-      function setGridCols(level){
-        const { cols } = LEVELS[level];
-        grid.classList.remove("cols-3","cols-4","cols-5");
-        grid.classList.add(`cols-${cols}`);
-      }
-
-      function shuffle(arr){
-        const a = arr.slice();
-        for(let i=a.length-1;i>0;i--){
-          const r = Math.floor(Math.random()*(i+1));
-          [a[i],a[r]] = [a[r],a[i]];
-        }
-        return a;
-      }
-
-      function beep(type){
-        if(!soundOn) return;
-        try{
-          if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          if(audioCtx.state === "suspended") audioCtx.resume();
-
-          const o = audioCtx.createOscillator();
-          const g = audioCtx.createGain();
-
-          const now = audioCtx.currentTime;
-          let freq = 520;
-          if(type === "match") freq = 740;
-          if(type === "wrong") freq = 220;
-          if(type === "win") freq = 880;
-
-          o.type = "sine";
-          o.frequency.setValueAtTime(freq, now);
-
-          g.gain.setValueAtTime(0.0001, now);
-          g.gain.exponentialRampToValueAtTime(0.12, now + 0.02);
-          g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
-
-          o.connect(g);
-          g.connect(audioCtx.destination);
-          o.start(now);
-          o.stop(now + 0.2);
-        }catch(e){}
-      }
-
-      function setBest(level){
-        const v = localStorage.getItem(bestKey(level));
-        elBest.textContent = v ? v : "—";
-      }
-
-      function clearBest(level){
-        localStorage.removeItem(bestKey(level));
-        setBest(level);
-      }
-
-      function startTimer(){
-        clearInterval(timer);
-        elTime.textContent = "0";
-        startAt = Date.now();
-        timer = setInterval(()=>{
-          elTime.textContent = String(Math.floor((Date.now()-startAt)/1000));
-        }, 250);
-      }
-
-      function stopTimer(){
-        clearInterval(timer);
-        timer = null;
-      }
-
-      function buildCard(icon){
-        const card = document.createElement("div");
-        card.className = "memCard";
-        card.setAttribute("data-icon", icon);
-        card.setAttribute("aria-disabled", "false");
-
-        card.innerHTML = `
-          <div class="memInner">
-            <div class="memFace memFront"></div>
-            <div class="memFace memBack"><div class="memEmoji">${icon}</div></div>
-          </div>
-        `;
-        card.addEventListener("click", ()=> onFlip(card));
-        return card;
-      }
-
-      function newGame(){
-        const level = selLevel.value;
-        const { pairs } = LEVELS[level];
-
-        first = null;
-        lock = false;
-        doneCount = 0;
-
-        setGridCols(level);
-        setBest(level);
-
-        const pool = shuffle(EMOJIS).slice(0, pairs);
-        const deck = shuffle([...pool, ...pool]);
-
-        grid.innerHTML = "";
-        deck.forEach(icon => grid.appendChild(buildCard(icon)));
-
-        startTimer();
-      }
-
-      function onFlip(card){
-        if(lock) return;
-        if(card.classList.contains("done") || card.classList.contains("open")) return;
-
-        card.classList.add("open");
-        beep("flip");
-
-        if(!first){
-          first = card;
-          return;
-        }
-
-        const a = first.getAttribute("data-icon");
-        const b = card.getAttribute("data-icon");
-
-        if(a === b){
-          lock = true;
-
-          first.classList.add("done","match");
-          card.classList.add("done","match");
-          first.setAttribute("aria-disabled","true");
-          card.setAttribute("aria-disabled","true");
-
-          doneCount += 2;
-          beep("match");
-
-          setTimeout(()=>{
-            first.classList.remove("match");
-            card.classList.remove("match");
-            first = null;
-            lock = false;
-
-            if(doneCount === grid.children.length){
-              stopTimer();
-              beep("win");
-
-              const level = selLevel.value;
-              const time = Math.floor((Date.now()-startAt)/1000);
-              const best = localStorage.getItem(bestKey(level));
-              if(!best || time < Number(best)){
-                localStorage.setItem(bestKey(level), String(time));
-                setBest(level);
-                showToast("Yangi rekord! 🔥");
-              } else {
-                showToast("Yutdingiz! ✅");
-              }
-            }
-          }, 220);
-
-        } else {
-          lock = true;
-          beep("wrong");
-
-          first.classList.add("wrong");
-          card.classList.add("wrong");
-
-          setTimeout(()=>{
-            first.classList.remove("wrong","open");
-            card.classList.remove("wrong","open");
-            first = null;
-            lock = false;
-          }, 650);
-        }
-      }
-
-      btnStart?.addEventListener("click", newGame);
-
-      selLevel?.addEventListener("change", ()=>{
-        stopTimer();
-        elTime.textContent = "0";
-        setBest(selLevel.value);
-        newGame();
-      });
-
-      btnSound?.addEventListener("click", ()=>{
-        soundOn = !soundOn;
-        btnSound.textContent = soundOn ? "🔊 Ovoz: Bor" : "🔈 Ovoz: Yo'q";
-        showToast(soundOn ? "Ovoz yoqildi ✅" : "Ovoz o‘chirildi ✅");
-        if(soundOn) beep("flip");
-      });
-
-      btnClear?.addEventListener("click", ()=>{
-        clearBest(selLevel.value);
-        showToast("Best tozalandi ✅");
-      });
-
-      setBest(selLevel.value);
-      newGame();
-    })();
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
-
