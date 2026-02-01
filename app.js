@@ -63,36 +63,60 @@ function showToast(text){
 })();
 
 // MEMORY GAME
+// -------- MEMORY GAME (TIME LIMIT + NAME + LEADERBOARD) --------
 (function(){
   const grid = document.getElementById("memGrid");
   if(!grid) return;
 
   const elTime = document.getElementById("memTime");
-  const elBest = document.getElementById("memBest");
+  const elBest = document.getElementById("memBest");      // sende bor bo'lsa ishlaydi
   const selLevel = document.getElementById("memLevel");
   const btnStart = document.getElementById("memStart");
   const btnSound = document.getElementById("memSound");
   const btnClear = document.getElementById("memClear");
+  const inpName = document.getElementById("memName");
+  const elLB = document.getElementById("memLeaderboard");
+  const elLevelLabel = document.getElementById("memLevelLabel");
 
   const LEVELS = {
-    easy:   { cols: 3, rows: 4, pairs: 6 },
-    medium: { cols: 4, rows: 4, pairs: 8 },
-    hard:   { cols: 5, rows: 4, pairs: 10 },
+    easy:   { cols: 3, rows: 4, pairs: 6,  limitSec: 120, label: "Oson (3×4)"  },
+    medium: { cols: 4, rows: 4, pairs: 8,  limitSec: 240, label: "O'rta (4×4)" },
+    hard:   { cols: 5, rows: 4, pairs: 10, limitSec: 300, label: "Qiyin (5×4)" },
   };
 
   const EMOJIS = ["🍎","🍌","🍇","🍓","🍍","🥝","🍒","🥥","🍉","🍑","🍋","🍊","🍪","🍩","🍫","🍿","🐱","🐶","🦊","🐼","🐸","🐵","🦁","🐯"];
 
+  // STATE
   let first = null;
   let lock = false;
   let doneCount = 0;
 
-  let startAt = 0;
-  let timer = null;
-
   let soundOn = true;
   let audioCtx = null;
 
-  function bestKey(level){ return `mem_best_${level}_v1`; }
+  let timer = null;
+  let remaining = 0;
+  let gameActive = false;
+
+  // STORAGE KEYS
+  const BEST_KEY = (level)=> `mem_best_${level}_time_v2`;
+  const LB_KEY   = "mem_leaderboard_v2";
+
+  // Toast (agar sende showToast bo'lsa ishlatadi, bo'lmasa alert)
+  function toast(msg){
+    if(typeof showToast === "function") showToast(msg);
+    else alert(msg);
+  }
+
+  function fmt(sec){
+    const m = Math.floor(sec/60);
+    const s = sec%60;
+    return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+  }
+
+  function setLevelLabel(level){
+    if(elLevelLabel) elLevelLabel.textContent = LEVELS[level].label;
+  }
 
   function setGridCols(level){
     const { cols } = LEVELS[level];
@@ -117,12 +141,12 @@ function showToast(text){
 
       const o = audioCtx.createOscillator();
       const g = audioCtx.createGain();
-
       const now = audioCtx.currentTime;
+
       let freq = 520;
       if(type === "match") freq = 740;
       if(type === "wrong") freq = 220;
-      if(type === "win") freq = 880;
+      if(type === "win")   freq = 880;
 
       o.type = "sine";
       o.frequency.setValueAtTime(freq, now);
@@ -136,28 +160,75 @@ function showToast(text){
     }catch(e){}
   }
 
+  function readLB(){
+    try{
+      const raw = localStorage.getItem(LB_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){
+      return [];
+    }
+  }
+
+  function writeLB(list){
+    localStorage.setItem(LB_KEY, JSON.stringify(list));
+  }
+
+  function updateLeaderboard(level){
+    if(!elLB) return;
+    const list = readLB().filter(x => x.level === level);
+    list.sort((a,b)=> a.timeSec - b.timeSec); // tezroq (kam vaqt) yuqorida
+    const top = list.slice(0,10);
+
+    elLB.innerHTML = "";
+    if(top.length === 0){
+      elLB.innerHTML = `<li>Hali natija yo‘q. Birinchi bo‘lib o‘ynang ✅</li>`;
+      return;
+    }
+    top.forEach((x, i)=>{
+      const li = document.createElement("li");
+      li.innerHTML = `<b>${i+1}) ${x.name}</b> — ${fmt(x.timeSec)} <span class="tiny">(${x.date})</span>`;
+      elLB.appendChild(li);
+    });
+  }
+
   function setBest(level){
-    const v = localStorage.getItem(bestKey(level));
-    elBest.textContent = v ? v : "—";
+    if(!elBest) return;
+    const v = localStorage.getItem(BEST_KEY(level));
+    elBest.textContent = v ? fmt(Number(v)) : "—";
   }
 
-  function clearBest(level){
-    localStorage.removeItem(bestKey(level));
-    setBest(level);
+  function saveBestIfNeeded(level, timeSec){
+    const prev = localStorage.getItem(BEST_KEY(level));
+    if(!prev || timeSec < Number(prev)){
+      localStorage.setItem(BEST_KEY(level), String(timeSec));
+      setBest(level);
+      toast("Yangi rekord! 🔥");
+    }
   }
 
-  function startTimer(){
-    clearInterval(timer);
-    elTime.textContent = "0";
-    startAt = Date.now();
-    timer = setInterval(()=>{
-      elTime.textContent = String(Math.floor((Date.now()-startAt)/1000));
-    }, 250);
-  }
-
-  function stopTimer(){
+  function stopCountdown(){
     clearInterval(timer);
     timer = null;
+  }
+
+  function startCountdown(limitSec){
+    stopCountdown();
+    remaining = limitSec;
+    if(elTime) elTime.textContent = fmt(remaining);
+
+    timer = setInterval(()=>{
+      if(!gameActive) return;
+      remaining--;
+      if(elTime) elTime.textContent = fmt(Math.max(0,remaining));
+
+      if(remaining <= 0){
+        // TIME UP
+        gameActive = false;
+        stopCountdown();
+        lock = true;
+        toast("⛔ Vaqt tugadi! Qayta boshlang.");
+      }
+    }, 1000);
   }
 
   function buildCard(icon){
@@ -176,16 +247,32 @@ function showToast(text){
     return card;
   }
 
+  function requireName(){
+    const name = (inpName?.value || "").trim();
+    if(!name){
+      toast("Ismingizni kiriting 🙂");
+      inpName?.focus();
+      return null;
+    }
+    return name;
+  }
+
   function newGame(){
+    const name = requireName();
+    if(!name) return;
+
     const level = selLevel.value;
-    const { pairs } = LEVELS[level];
+    const { pairs, limitSec } = LEVELS[level];
 
     first = null;
     lock = false;
     doneCount = 0;
+    gameActive = true;
 
     setGridCols(level);
+    setLevelLabel(level);
     setBest(level);
+    updateLeaderboard(level);
 
     const pool = shuffle(EMOJIS).slice(0, pairs);
     const deck = shuffle([...pool, ...pool]);
@@ -193,10 +280,38 @@ function showToast(text){
     grid.innerHTML = "";
     deck.forEach(icon => grid.appendChild(buildCard(icon)));
 
-    startTimer();
+    startCountdown(limitSec);
+  }
+
+  function endWin(){
+    const level = selLevel.value;
+    const name = (inpName?.value || "").trim();
+
+    gameActive = false;
+    stopCountdown();
+    beep("win");
+
+    const limit = LEVELS[level].limitSec;
+    const used = Math.max(0, limit - remaining); // sarflangan vaqt
+
+    // save best
+    saveBestIfNeeded(level, used);
+
+    // save leaderboard
+    const list = readLB();
+    const today = new Date();
+    const date = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+
+    list.push({ name, level, timeSec: used, date });
+    writeLB(list);
+
+    updateLeaderboard(level);
+
+    toast(`Yutdingiz! ✅ Natija: ${fmt(used)}`);
   }
 
   function onFlip(card){
+    if(!gameActive) return;
     if(lock) return;
     if(card.classList.contains("done") || card.classList.contains("open")) return;
 
@@ -229,20 +344,7 @@ function showToast(text){
         lock = false;
 
         if(doneCount === grid.children.length){
-          stopTimer();
-          beep("win");
-
-          const level = selLevel.value;
-          const time = Math.floor((Date.now()-startAt)/1000);
-          const best = localStorage.getItem(bestKey(level));
-
-          if(!best || time < Number(best)){
-            localStorage.setItem(bestKey(level), String(time));
-            setBest(level);
-            showToast("Yangi rekord! 🔥");
-          } else {
-            showToast("Yutdingiz! ✅");
-          }
+          endWin();
         }
       }, 220);
 
@@ -265,55 +367,44 @@ function showToast(text){
   btnStart?.addEventListener("click", newGame);
 
   selLevel?.addEventListener("change", ()=>{
-    stopTimer();
-    elTime.textContent = "0";
-    setBest(selLevel.value);
-    newGame();
+    // level almashsa: natijani ko'rsatib turamiz
+    const level = selLevel.value;
+    setLevelLabel(level);
+    setBest(level);
+    updateLeaderboard(level);
+
+    // xohlasa darhol qayta boshlatsin
+    // newGame();
   });
 
   btnSound?.addEventListener("click", ()=>{
     soundOn = !soundOn;
     btnSound.textContent = soundOn ? "🔊 Ovoz: Bor" : "🔇 Ovoz: Yo'q";
-    showToast(soundOn ? "Ovoz yoqildi ✅" : "Ovoz o‘chirildi ✅");
+    toast(soundOn ? "Ovoz yoqildi ✅" : "Ovoz o‘chirildi ✅");
     if(soundOn) beep("flip");
   });
 
   btnClear?.addEventListener("click", ()=>{
-    clearBest(selLevel.value);
-    showToast("Rekord tozalandi ✅");
+    // faqat reytingni emas, rekordni ham tozalash
+    const level = selLevel.value;
+    localStorage.removeItem(BEST_KEY(level));
+
+    // leaderboard'ni faqat shu level bo'yicha tozalaymiz
+    const list = readLB().filter(x => x.level !== level);
+    writeLB(list);
+
+    setBest(level);
+    updateLeaderboard(level);
+    toast("Natijalar tozalandi ✅");
   });
-// MEMORY TOGGLE (o'yinni ochish/yopish)
-(function(){
-  const btn = document.getElementById("memToggle");
-  const body = document.getElementById("memBody");
-  if(!btn || !body) return;
 
-  let inited = false;
-
-  btn.addEventListener("click", ()=>{
-    const isOpen = btn.getAttribute("aria-expanded") === "true";
-    btn.setAttribute("aria-expanded", String(!isOpen));
-
-    if(isOpen){
-      body.hidden = true;
-    } else {
-      body.hidden = false;
-
-      // birinchi marta ochilganda o'yinni ishga tushiramiz
-      if(!inited){
-        inited = true;
-
-        // agar sening memory game kodi app.js ichida bo'lsa, u avtomat ishlaydi.
-        // Lekin biz grid hidden bo'lganida ishlamagan bo'lishi mumkin,
-        // shuning uchun qayta ishga tushirish tugmasini bosamiz:
-        const startBtn = document.getElementById("memStart");
-        if(startBtn) startBtn.click();
-      }
-    }
-  });
-})();
-
+  // boshlang'ich ko'rinish
+  setLevelLabel(selLevel.value);
   setBest(selLevel.value);
-  newGame();
+  updateLeaderboard(selLevel.value);
+
+  // vaqt ko'rsatkichini default qilib qo'yamiz
+  if(elTime) elTime.textContent = fmt(LEVELS[selLevel.value].limitSec);
 })();
+
 
