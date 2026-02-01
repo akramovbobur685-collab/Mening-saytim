@@ -87,26 +87,42 @@
 
     <!-- Hotira o'yini -->
     <section class="glass section" id="memory">
-      <h2>🧠 Hotirangizni Mustahkamlang</h2>
-      <p class="sub">Kartalarni ochib juftini toping. Darajani tanlang, rekordni yangilang 🔥</p>
+  <div class="memHeader">
+    <div>
+      <h2>🧠 Hotira o‘yini</h2>
+      <p class="sub">Tugmani bosing — o‘yin ochiladi/yopiladi.</p>
+    </div>
 
-      <div class="memProTop">
-        <span class="pill">⏱ <b id="memTime">0</b>s</span>
-        <span class="pill">🏆 Rekord: <b id="memBest">—</b>s</span>
+    <button class="memToggle" id="memToggle" type="button" aria-expanded="false">
+      🧠 Hotirangizni mustahkamlang
+      <span class="chev" aria-hidden="true">▾</span>
+    </button>
+  </div>
 
-        <select id="memLevel" class="memSelect" aria-label="Darajani tanlash">
-          <option value="easy">Oson (3×4)</option>
-          <option value="medium" selected>O'rta (4×4)</option>
-          <option value="hard">Qiyin (5×4)</option>
-        </select>
+  <!-- O‘YIN YASHIRIN HOLATDA -->
+  <div class="memBody" id="memBody" hidden>
+    <h2>🧠 Hotirangizni Mustahkamlang</h2>
+    <p class="sub">Kartalarni ochib juftini toping. Darajani tanlang, rekordni yangilang 🔥</p>
 
-        <button class="memBtn" id="memStart">Boshlash / Qayta</button>
-        <button class="memBtn" id="memSound">🔊 Ovoz: Bor</button>
-        <button class="memBtn" id="memClear">Natijani tozalash</button>
-      </div>
+    <div class="memProTop">
+      <span class="pill">⏱ <b id="memTime">0</b>s</span>
+      <span class="pill">🏆 Rekord: <b id="memBest">—</b>s</span>
 
-      <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
-    </section>
+      <select id="memLevel" class="memSelect" aria-label="Darajani tanlash">
+        <option value="easy">Oson (3×4)</option>
+        <option value="medium" selected>O'rta (4×4)</option>
+        <option value="hard">Qiyin (5×4)</option>
+      </select>
+
+      <button class="memBtn" id="memStart">Boshlash / Qayta</button>
+      <button class="memBtn" id="memSound">🔊 Ovoz: Bor</button>
+      <button class="memBtn" id="memClear">Natijani tozalash</button>
+    </div>
+
+    <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
+  </div>
+</section>
+
 
     <!-- Aloqa -->
     <section class="glass section" id="aloqa">
