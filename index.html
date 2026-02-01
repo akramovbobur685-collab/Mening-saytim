@@ -97,21 +97,23 @@
   <div class="memBody" id="memBody" hidden>
     <h2>🧠 Hotirangizni Mustahkamlang</h2>
     <p class="sub">Kartalarni ochib juftini toping. Darajani tanlang, rekordni yangilang 🔥</p>
+<!-- Ism kiritish -->
+<div class="memNameRow">
+  <input id="memName" class="memInput" type="text" placeholder="Ismingiz (masalan: Bobur)" maxlength="18" />
+  <span class="pill">⏳ Qolgan vaqt: <b id="memTime">00:00</b></span>
+</div>
 
-    <div class="memProTop">
-      <span class="pill">⏱ <b id="memTime">0</b>s</span>
-      <span class="pill">🏆 Rekord: <b id="memBest">—</b>s</span>
+<!-- Reyting -->
+<div class="memRating">
+  <div class="memRatingTop">
+    <h3>🏆 Reyting (Top 10)</h3>
+    <span class="pill">Daraja: <b id="memLevelLabel">O'rta (4×4)</b></span>
+  </div>
+  <ol id="memLeaderboard" class="memList"></ol>
+  <div class="tiny">Natijalar brauzerda (localStorage) saqlanadi.</div>
+</div>
 
-      <select id="memLevel" class="memSelect" aria-label="Darajani tanlash">
-        <option value="easy">Oson (3×4)</option>
-        <option value="medium" selected>O'rta (4×4)</option>
-        <option value="hard">Qiyin (5×4)</option>
-      </select>
-
-      <button class="memBtn" id="memStart">Boshlash / Qayta</button>
-      <button class="memBtn" id="memSound">🔊 Ovoz: Bor</button>
-      <button class="memBtn" id="memClear">Natijani tozalash</button>
-    </div>
+   
 
     <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
   </div>
