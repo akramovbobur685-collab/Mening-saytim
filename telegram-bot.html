@@ -2,74 +2,227 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <title>Telegram bot — 0 dan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram bot — 0 dan yasash</title>
+
+  <meta name="description" content="Telegram bot nima? Botni 0 dan yaratish, kompyuterda ishga tushirish va 24/7 serverga joylash bo‘yicha bosqichma-bosqich qo‘llanma.">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="wrap docPage">
-  <div class="docBox glass">
-    <h1>🤖 Telegram bot — 0 dan yasash va ishga tushirish</h1>
-    <p>Bot yaratish, kompyuterda ishlatish va serverga (24/7) joylash bo‘yicha qisqa yo‘l-yo‘riq.</p>
-
-    <h2>1) BotFather orqali bot yaratish</h2>
-    <ol>
-      <li>Telegram’da <b>@BotFather</b> ni oching</li>
-      <li><b>/newbot</b> yuboring</li>
-      <li>Bot nomi va username tanlang (oxiri <b>bot</b> bilan)</li>
-      <li>BotFather bergan <b>TOKEN</b>ni saqlang</li>
-    </ol>
-
-    <h2>2) Minimal kod (Python + aiogram)</h2>
-    <pre>
-pip install -U aiogram
-python bot.py
-    </pre>
-
-    <h2>3) 24/7 serverga joylash</h2>
-    <p>GitHub repo → Render/Railway → Start command: <code>python bot.py</code></p>
-
-    <hr>
-
-    <!-- REAL BOT TANISHTIRISH -->
-    <section class="real-project">
-      <h2>🚀 Real loyiha: ustaxizmati_bot</h2>
+  <div class="wrap docPage">
+    <div class="docBox glass">
+      <h1>🤖 Telegram bot — 0 dan yasash va ishga tushirish</h1>
 
       <p>
-        Bu mening real ishlayotgan Telegram botim. Ustalar va mijozlarni bog‘lash uchun yaratilgan.
+        Bu sahifada siz Telegram bot nima ekanini, u qanday ishlashini va 0 dan qilib
+        ishlaydigan bot yaratishni o‘rganasiz. Dars oxirida botingiz kompyuterda ishlaydi,
+        xohlasangiz serverga joylab 24/7 ishlatishingiz ham mumkin.
       </p>
 
-      <h3>🛠 Bot nima qiladi?</h3>
-      <ul>
-        <li>Ustalar o‘z xizmatlarini joylaydi</li>
-        <li>Mijozlar buyurtma qoldiradi</li>
-        <li>Telefon raqam va manzil tez olinadi</li>
-        <li>Admin orqali nazorat qilinadi</li>
-      </ul>
+      <hr>
 
-      <h3>👥 Kimlar uchun?</h3>
-      <ul>
-        <li>Elektriklar</li>
-        <li>Santexniklar</li>
-        <li>Maishiy texnika ustalari</li>
-        <li>Xizmat ko‘rsatuvchi kichik bizneslar</li>
-      </ul>
-
-      <p>👇 Botni sinab ko‘ring:</p>
-      <a href="https://t.me/ustaxizmati_bot" target="_blank" class="bot-link">
-        👉 @ustaxizmati_bot
-      </a>
-
-      <p class="note">
-        ⚠️ Eslatma: Bot rivojlantirilmoqda. Taklif va fikrlar qabul qilinadi.
+      <h2>1) Telegram bot nima?</h2>
+      <p>
+        Telegram bot — bu Telegram ichida ishlaydigan “avtomatik yordamchi”.
+        U foydalanuvchilarga javob beradi, tugmalar chiqaradi, buyurtma qabul qiladi,
+        ma’lumot yig‘adi va kerak bo‘lsa admin’ga yuboradi.
       </p>
-    </section>
 
-    <hr>
-    <p>🔙 <a href="index.html">Asosiy sahifaga qaytish</a></p>
+      <h3>Botlar qayerda ishlatiladi?</h3>
+      <ul>
+        <li>🛒 Buyurtma qabul qilish (do‘kon)</li>
+        <li>📞 Mijozdan kontakt olish (telefon, manzil)</li>
+        <li>📝 Ro‘yxatdan o‘tkazish</li>
+        <li>📦 Katalog va narxlar</li>
+        <li>👨‍💼 Admin panel (buyurtmalar ro‘yxati)</li>
+      </ul>
+
+      <h2>2) Bot qanday ishlaydi? (oddiy tushuntirish)</h2>
+      <ol>
+        <li>Foydalanuvchi botga yozadi yoki tugma bosadi</li>
+        <li>Bot Telegram serveridan xabarni oladi</li>
+        <li>Biz yozgan kod (Python) xabarni qayta ishlaydi</li>
+        <li>Bot javob qaytaradi (matn, tugma, rasm, fayl)</li>
+      </ol>
+
+      <hr>
+
+      <h2>3) 1-qadam: BotFather orqali bot yaratish</h2>
+      <ol>
+        <li>Telegram’da <b>@BotFather</b> ni oching</li>
+        <li><b>/newbot</b> yuboring</li>
+        <li>Bot nomini kiriting (masalan: MyShop Bot)</li>
+        <li>Username tanlang (oxiri <b>bot</b> bilan tugasin, masalan: myshop_help_bot)</li>
+        <li>BotFather sizga <b>TOKEN</b> beradi — uni saqlab qo‘ying</li>
+      </ol>
+
+      <p class="tiny">
+        ⚠️ Muhim: TOKENni hech qachon ommaga (GitHub) ochiq qo‘ymang. Bu kalit o‘g‘irlanishi mumkin.
+      </p>
+
+      <hr>
+
+      <h2>4) 2-qadam: Kompyuterda bot uchun papka tayyorlash</h2>
+      <p>Kompyuteringizda masalan shunaqa papka oching:</p>
+
+      <pre>
+telegram-bot/
+ ├── bot.py
+ ├── requirements.txt
+ └── .env   (ixtiyoriy, token uchun xavfsiz)
+      </pre>
+
+      <h2>5) 3-qadam: Aiogram o‘rnatish</h2>
+      <p>Terminal (CMD) ochib papkangizga kiring va yozing:</p>
+      <pre>
+pip install -U aiogram
+      </pre>
+
+      <p>Keyin <b>requirements.txt</b> yarating:</p>
+      <pre>
+aiogram==3.*
+      </pre>
+
+      <hr>
+
+      <h2>6) 4-qadam: Minimal bot kodi (tayyor)</h2>
+      <p>
+        Bu kod sizga /start komandasi, “Katalog” va “Buyurtma” tugmalarini beradi.
+        <b>TOKEN</b> o‘rniga o‘zingiznikini yozasiz.
+      </p>
+
+      <pre>
+import asyncio
+from aiogram import Bot, Dispatcher, F
+from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
+
+TOKEN = "TOKENNI_BU_YERGA_QOY"  # Tokenni BotFather'dan olasiz
+
+dp = Dispatcher()
+
+kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="📦 Katalog"), KeyboardButton(text="🛒 Buyurtma")],
+        [KeyboardButton(text="📞 Aloqa")]
+    ],
+    resize_keyboard=True
+)
+
+@dp.message(F.text == "/start")
+async def start(message: Message):
+    await message.answer(
+        "Assalomu alaykum! Men do‘kon botiman.\nQuyidan tanlang 👇",
+        reply_markup=kb
+    )
+
+@dp.message(F.text == "📦 Katalog")
+async def catalog(message: Message):
+    await message.answer(
+        "Katalog:\n"
+        "1) Mahsulot A — 100 000 so‘m\n"
+        "2) Mahsulot B — 150 000 so‘m\n\n"
+        "Buyurtma uchun 🛒 tugmasini bosing."
+    )
+
+@dp.message(F.text == "🛒 Buyurtma")
+async def order(message: Message):
+    await message.answer(
+        "Buyurtma berish uchun yozing:\n"
+        "1) Mahsulot nomi\n"
+        "2) Soni\n"
+        "3) Manzil\n"
+        "4) Telefon\n\n"
+        "Masalan: Mahsulot A, 2 dona, Andijon, +998..."
+    )
+
+@dp.message(F.text == "📞 Aloqa")
+async def contact(message: Message):
+    await message.answer("Aloqa: +998 XX XXX XX XX\nTelegram: @username")
+
+async def main():
+    bot = Bot(TOKEN)
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+      </pre>
+
+      <hr>
+
+      <h2>7) 5-qadam: Botni ishga tushirish (kompyuterda)</h2>
+      <p>Papkangiz ichida terminalda yozing:</p>
+      <pre>
+python bot.py
+      </pre>
+
+      <p>Keyin Telegram’da botga kirib <b>/start</b> yuborib tekshiring ✅</p>
+
+      <hr>
+
+      <h2>8) Botni 24/7 qilish (serverga joylash)</h2>
+      <p>
+        Agar bot faqat kompyuterda ishlasa, kompyuteringiz o‘chsa bot ham to‘xtaydi.
+        24/7 ishlashi uchun serverga joylash kerak.
+      </p>
+
+      <h3>Eng oson yo‘l</h3>
+      <ol>
+        <li>GitHub’ga kodni joylang</li>
+        <li>Render/Railway’da yangi servis oching</li>
+        <li>Start command: <code>python bot.py</code></li>
+      </ol>
+
+      <p class="tiny">
+        ✅ Eslatma: Serverga qo‘yishda tokenni .env orqali berish yaxshiroq (xavfsizroq).
+      </p>
+
+      <hr>
+
+      <!-- REAL BOT TANISHTIRISH -->
+      <section class="real-project">
+        <h2>🚀 Real loyiha: ustaxizmati_bot</h2>
+
+        <p>
+          Bu mening real ishlayotgan Telegram botim. Ustalar va mijozlarni bog‘lash uchun yaratilgan.
+          Siz botni sinab ko‘rib, qanday ishlashini ko‘rishingiz mumkin.
+        </p>
+
+        <h3>🛠 Bot nima qiladi?</h3>
+        <ul>
+          <li>Ustalar o‘z xizmatlarini joylaydi</li>
+          <li>Mijozlar buyurtma qoldiradi</li>
+          <li>Telefon raqam va manzil tez olinadi</li>
+          <li>Admin orqali nazorat qilinadi</li>
+        </ul>
+
+        <h3>👥 Kimlar uchun?</h3>
+        <ul>
+          <li>Elektriklar</li>
+          <li>Santexniklar</li>
+          <li>Maishiy texnika ustalari</li>
+          <li>Xizmat ko‘rsatuvchi kichik bizneslar</li>
+        </ul>
+
+        <p>👇 Botni sinab ko‘ring:</p>
+        <a href="https://t.me/ustaxizmati_bot" target="_blank" rel="noopener" class="bot-link">
+          👉 @ustaxizmati_bot
+        </a>
+
+        <p class="note">
+          ⚠️ Eslatma: Bot doimiy rivojlantirilmoqda. Taklif va fikrlar qabul qilinadi.
+        </p>
+      </section>
+
+      <hr>
+      <p>🔙 <a href="index.html">Asosiy sahifaga qaytish</a></p>
+    </div>
   </div>
-</div>
 
+  <!-- Sahifalararo ohista o‘tish ishlashi uchun -->
+  <script src="app.js"></script>
 </body>
 </html>
+
+
