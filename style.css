@@ -449,6 +449,12 @@ body{
 .tile, .sbtn{
   touch-action: manipulation;
 }
+.glass{
+  /* backdrop-filter: blur(16px);  <-- SHUNI kamaytiramiz */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
 
 
 
