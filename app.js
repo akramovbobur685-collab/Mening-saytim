@@ -406,5 +406,33 @@ function showToast(text){
   // vaqt ko'rsatkichini default qilib qo'yamiz
   if(elTime) elTime.textContent = fmt(LEVELS[selLevel.value].limitSec);
 })();
+// Smooth page transition for internal links
+(function(){
+  document.addEventListener("click", (e)=>{
+    const a = e.target.closest("a");
+    if(!a) return;
+
+    const href = a.getAttribute("href") || "";
+
+    // faqat ichki sahifalar (mini-landing.html, telegram-bot.html) uchun
+    const isInternalPage =
+      href.endsWith(".html") && !href.startsWith("http") && !href.startsWith("//");
+
+    if(!isInternalPage) return;
+
+    e.preventDefault();
+
+    // bosilganini darrov sezdirish
+    a.style.transform = "scale(0.985)";
+
+    // sahifani ohista yopamiz
+    document.body.classList.add("page-fade");
+
+    setTimeout(()=>{
+      window.location.href = href;
+    }, 180);
+  });
+})();
+
 
 
