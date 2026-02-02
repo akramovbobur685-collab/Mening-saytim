@@ -378,4 +378,10 @@ footer{
   *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
   .blob{ display:none; }
 }
+html, body{
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
 
