@@ -394,6 +394,22 @@ html, body{
   min-height: 100%;
   overflow-x: hidden;
 }
+/* PC’da pastda ortiqcha fon ko‘rinmasligi uchun */
+@media (min-width: 900px){
+  body{
+    background-attachment: fixed;
+  }
+
+  /* pastdagi bo'sh ko'rinishni kamaytiradi */
+  footer{
+    margin-bottom: 0 !important;
+  }
+
+  .wrap{
+    padding-bottom: 0 !important;
+  }
+}
+
 
 
 
