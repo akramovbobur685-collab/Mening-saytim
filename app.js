@@ -1,89 +1,44 @@
-// Year
-document.getElementById("year").textContent = new Date().getFullYear();
 
+// =======================
+// Year
+// =======================
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// =======================
 // Toast
+// =======================
 function showToast(text){
   const t = document.getElementById("toast");
-  document.getElementById("toastText").textContent = text;
+  const tt = document.getElementById("toastText");
+  if(!t || !tt) return; // toast bo'lmasa jim turadi
+  tt.textContent = text;
   t.style.display = "block";
   clearTimeout(window.__to);
   window.__to = setTimeout(()=> t.style.display = "none", 2400);
 }
 
-// HERO SLIDER
-(function(){
-  const box = document.getElementById("slideBox");
-  const dotsWrap = document.getElementById("sliderDots");
-  if(!box) return;
-
-  const imgs = Array.from(box.querySelectorAll("img"));
-  let idx = 0;
-  let timer = null;
-
-  function setActive(i){
-    idx = i;
-    imgs.forEach((im,k)=> im.classList.toggle("active", k===idx));
-    if(dotsWrap){
-      Array.from(dotsWrap.children).forEach((d,k)=> d.classList.toggle("active", k===idx));
-    }
-  }
-  function next(){ setActive((idx + 1) % imgs.length); }
-  function start(){ stop(); timer = setInterval(next, 2800); }
-  function stop(){ if(timer) clearInterval(timer); timer = null; }
-// boshqa joydan to'xtatish uchun global chiqazamiz
-window.__memStopTimer = stopTimer;
-
-  if(dotsWrap){
-    dotsWrap.innerHTML = "";
-    imgs.forEach((_,k)=>{
-      const d = document.createElement("button");
-      d.type = "button";
-      d.className = "dot" + (k===0 ? " active" : "");
-      d.addEventListener("click", ()=>{ setActive(k); start(); });
-      dotsWrap.appendChild(d);
-    });
-  }
-
-  box.addEventListener("mouseenter", stop);
-  box.addEventListener("mouseleave", start);
-
-  let x0 = null;
-  box.addEventListener("touchstart", (e)=>{ x0 = e.touches[0].clientX; }, {passive:true});
-  box.addEventListener("touchend", (e)=>{
-    if(x0 === null) return;
-    const x1 = e.changedTouches[0].clientX;
-    const dx = x1 - x0;
-    if(Math.abs(dx) > 40){
-      if(dx < 0) setActive((idx+1)%imgs.length);
-      else setActive((idx-1+imgs.length)%imgs.length);
-      start();
-    }
-    x0 = null;
-  }, {passive:true});
-
-  start();
-})();
-
-// MEMORY GAME
-// -------- MEMORY GAME (TIME LIMIT + NAME + LEADERBOARD) --------
+// =======================
+// MEMORY GAME (TIME LIMIT + NAME + LOCAL LEADERBOARD)
+// =======================
 (function(){
   const grid = document.getElementById("memGrid");
   if(!grid) return;
 
   const elTime = document.getElementById("memTime");
-  const elBest = document.getElementById("memBest");      // sende bor bo'lsa ishlaydi
+  const elBest = document.getElementById("memBest");      // bo'lsa ishlaydi
   const selLevel = document.getElementById("memLevel");
   const btnStart = document.getElementById("memStart");
   const btnSound = document.getElementById("memSound");
   const btnClear = document.getElementById("memClear");
   const inpName = document.getElementById("memName");
-  const elLB = document.getElementById("memLeaderboard");
-  const elLevelLabel = document.getElementById("memLevelLabel");
+  const elLB = document.getElementById("memLeaderboard"); // SENDA SHU ID bo'lsa
+  const elLevelLabel = document.getElementById("memLevelLabel"); // bo'lsa ishlaydi
 
   const LEVELS = {
-    easy:   { cols: 3, rows: 4, pairs: 6,  limitSec: 120, label: "Oson (3×4)"  },
-    medium: { cols: 4, rows: 4, pairs: 8,  limitSec: 240, label: "O'rta (4×4)" },
-    hard:   { cols: 5, rows: 4, pairs: 10, limitSec: 300, label: "Qiyin (5×4)" },
+    easy:   { cols: 3, pairs: 6,  limitSec: 120, label: "Oson (3×4)"  }, // 2 min
+    medium: { cols: 4, pairs: 8,  limitSec: 240, label: "O'rta (4×4)" }, // 4 min
+    hard:   { cols: 5, pairs: 10, limitSec: 300, label: "Qiyin (5×4)" }, // 5 min
   };
 
   const EMOJIS = ["🍎","🍌","🍇","🍓","🍍","🥝","🍒","🥥","🍉","🍑","🍋","🍊","🍪","🍩","🍫","🍿","🐱","🐶","🦊","🐼","🐸","🐵","🦁","🐯"];
@@ -104,7 +59,6 @@ window.__memStopTimer = stopTimer;
   const BEST_KEY = (level)=> `mem_best_${level}_time_v2`;
   const LB_KEY   = "mem_leaderboard_v2";
 
-  // Toast (agar sende showToast bo'lsa ishlatadi, bo'lmasa alert)
   function toast(msg){
     if(typeof showToast === "function") showToast(msg);
     else alert(msg);
@@ -121,7 +75,7 @@ window.__memStopTimer = stopTimer;
   }
 
   function setGridCols(level){
-    const { cols } = LEVELS[level];
+    const cols = LEVELS[level].cols;
     grid.classList.remove("cols-3","cols-4","cols-5");
     grid.classList.add(`cols-${cols}`);
   }
@@ -178,7 +132,7 @@ window.__memStopTimer = stopTimer;
   function updateLeaderboard(level){
     if(!elLB) return;
     const list = readLB().filter(x => x.level === level);
-    list.sort((a,b)=> a.timeSec - b.timeSec); // tezroq (kam vaqt) yuqorida
+    list.sort((a,b)=> a.timeSec - b.timeSec); // kam vaqt = yaxshi
     const top = list.slice(0,10);
 
     elLB.innerHTML = "";
@@ -213,6 +167,12 @@ window.__memStopTimer = stopTimer;
     timer = null;
   }
 
+  // ✅ Toggle yopilganda tashqaridan to'xtatish uchun:
+  window.__memStopTimer = () => {
+    gameActive = false;
+    stopCountdown();
+  };
+
   function startCountdown(limitSec){
     stopCountdown();
     remaining = limitSec;
@@ -220,11 +180,11 @@ window.__memStopTimer = stopTimer;
 
     timer = setInterval(()=>{
       if(!gameActive) return;
+
       remaining--;
       if(elTime) elTime.textContent = fmt(Math.max(0,remaining));
 
       if(remaining <= 0){
-        // TIME UP
         gameActive = false;
         stopCountdown();
         lock = true;
@@ -256,7 +216,7 @@ window.__memStopTimer = stopTimer;
       inpName?.focus();
       return null;
     }
-    return name;
+    return name.slice(0,20);
   }
 
   function newGame(){
@@ -287,16 +247,15 @@ window.__memStopTimer = stopTimer;
 
   function endWin(){
     const level = selLevel.value;
-    const name = (inpName?.value || "").trim();
+    const name = (inpName?.value || "").trim().slice(0,20);
 
     gameActive = false;
     stopCountdown();
     beep("win");
 
     const limit = LEVELS[level].limitSec;
-    const used = Math.max(0, limit - remaining); // sarflangan vaqt
+    const used = Math.max(0, limit - remaining); // ishlatgan vaqt
 
-    // save best
     saveBestIfNeeded(level, used);
 
     // save leaderboard
@@ -308,7 +267,6 @@ window.__memStopTimer = stopTimer;
     writeLB(list);
 
     updateLeaderboard(level);
-
     toast(`Yutdingiz! ✅ Natija: ${fmt(used)}`);
   }
 
@@ -369,14 +327,19 @@ window.__memStopTimer = stopTimer;
   btnStart?.addEventListener("click", newGame);
 
   selLevel?.addEventListener("change", ()=>{
-    // level almashsa: natijani ko'rsatib turamiz
     const level = selLevel.value;
+
+    // o'yin yurgan bo'lsa, level o'zgartirishda to'xtatib qo'yamiz (qotmasin)
+    gameActive = false;
+    stopCountdown();
+    lock = false;
+    first = null;
+
     setLevelLabel(level);
     setBest(level);
     updateLeaderboard(level);
 
-    // xohlasa darhol qayta boshlatsin
-    // newGame();
+    if(elTime) elTime.textContent = fmt(LEVELS[level].limitSec);
   });
 
   btnSound?.addEventListener("click", ()=>{
@@ -387,8 +350,8 @@ window.__memStopTimer = stopTimer;
   });
 
   btnClear?.addEventListener("click", ()=>{
-    // faqat reytingni emas, rekordni ham tozalash
     const level = selLevel.value;
+
     localStorage.removeItem(BEST_KEY(level));
 
     // leaderboard'ni faqat shu level bo'yicha tozalaymiz
@@ -400,39 +363,32 @@ window.__memStopTimer = stopTimer;
     toast("Natijalar tozalandi ✅");
   });
 
-  // boshlang'ich ko'rinish
+  // init
   setLevelLabel(selLevel.value);
   setBest(selLevel.value);
   updateLeaderboard(selLevel.value);
-
-  // vaqt ko'rsatkichini default qilib qo'yamiz
   if(elTime) elTime.textContent = fmt(LEVELS[selLevel.value].limitSec);
 })();
+
+// =======================
 // Smooth page transition for internal links
+// =======================
 (function(){
   document.addEventListener("click", (e)=>{
     const a = e.target.closest("a");
     if(!a) return;
 
     const href = a.getAttribute("href") || "";
-
-    // faqat ichki sahifalar (mini-landing.html, telegram-bot.html) uchun
-    const isInternalPage =
-      href.endsWith(".html") && !href.startsWith("http") && !href.startsWith("//");
+    const isInternalPage = href.endsWith(".html") && !href.startsWith("http") && !href.startsWith("//");
 
     if(!isInternalPage) return;
 
     e.preventDefault();
 
-    // bosilganini darrov sezdirish
     a.style.transform = "scale(0.985)";
-
-    // sahifani ohista yopamiz
     document.body.classList.add("page-fade");
 
-    setTimeout(()=>{
-      window.location.href = href;
-    }, 180);
+    setTimeout(()=>{ window.location.href = href; }, 180);
   });
 })();
 
