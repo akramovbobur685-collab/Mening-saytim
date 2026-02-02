@@ -58,13 +58,10 @@ body.page-fade{
   0%,100%{transform:translate(0,0) scale(1)}
   50%{transform:translate(24px,14px) scale(1.05)}
 }
-
 .wrap{
-  max-width:1050px;
-  margin:0 auto;
-  padding:22px;
-  padding-bottom: 0; /* bo'sh joy chiqmasin */
+  padding-bottom: 0 !important;
 }
+
 
 .glass{
   background: rgba(255,255,255,.08);
@@ -383,5 +380,6 @@ html, body{
   min-height: 100%;
   overflow-x: hidden;
 }
+
 
 
