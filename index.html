@@ -1,10 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bobur Akramov</title>
+
   <link rel="stylesheet" href="style.css">
+  <!-- Avatar tez chiqishi uchun -->
+  <link rel="preload" as="image" href="img/me1.jpg">
 </head>
 
 <body>
@@ -13,28 +17,36 @@
   <div class="blob b3"></div>
 
   <div class="wrap">
+    <!-- TOP -->
     <div class="top">
       <div class="brand">
         <span style="font-size:22px">🫧</span>
         <span>Bobur Akramov</span>
         <span class="pill">Liquid Glass UI</span>
       </div>
+
       <nav class="nav">
         <a href="#portfolio">Portfolio</a>
         <a href="#memory">Hotira o'yini</a>
         <a href="#aloqa">Aloqa</a>
       </nav>
     </div>
-<section class="glass hero" id="home">
-  <div class="heroGrid">
 
-    <!-- AVATAR -->
-    <div class="avatar-wrap">
-     <img src="img/me1.jpg" class="avatar" width="220" height="220" decoding="async" loading="eager" alt="Bobur Akramov">
+    <!-- HERO -->
+    <section class="glass hero" id="home">
+      <div class="heroGrid">
+        <div class="avatar-wrap">
+          <img
+            src="img/me1.jpg"
+            class="avatar"
+            width="220"
+            height="220"
+            decoding="async"
+            loading="eager"
+            alt="Bobur Akramov"
+          >
+        </div>
 
-    </div>
-
-        <!-- Bio -->
         <div>
           <h1>Assalomu alaykum! Men Bobur Akramov</h1>
 
@@ -54,7 +66,7 @@
       </div>
     </section>
 
-    <!-- Portfolio -->
+    <!-- PORTFOLIO -->
     <section class="glass section" id="portfolio">
       <h2>Portfolio</h2>
       <p class="sub">Demo kartalar. Hozir o‘rgatuvchi sahifalarga bog‘langan.</p>
@@ -62,8 +74,6 @@
       <div class="grid">
         <a class="tile" href="mini-landing.html">
           <div class="tag">📌 Loyiha #1</div>
-          <script src="app.js"></script>
-
           <h3>Mini landing</h3>
           <p>Yengil, tez ochiladigan bir sahifali sayt + hosting (GitHub Pages) tushuntirish.</p>
         </a>
@@ -82,88 +92,97 @@
       </div>
     </section>
 
-    <!-- Hotira o'yini -->
+    <!-- MEMORY -->
     <section class="glass section" id="memory">
-  <div class="memHeader">
-    <div>
-      <h2>🧠 Hotira o‘yini</h2>
-      <p class="sub">Tugmani bosing — o‘yin ochiladi/yopiladi.</p>
-    </div>
+      <div class="memHeader">
+        <div>
+          <h2>🧠 Hotira o‘yini</h2>
+          <p class="sub">Tugmani bosing — o‘yin ochiladi/yopiladi.</p>
+        </div>
 
-    <button class="memToggle" id="memToggle" type="button" aria-expanded="false">
-      🧠 Hotirangizni mustahkamlang
-      <span class="chev" aria-hidden="true">▾</span>
-    </button>
-  </div>
+        <button class="memToggle" id="memToggle" type="button" aria-expanded="false">
+          🧠 Hotirangizni mustahkamlang
+          <span class="chev" aria-hidden="true">▾</span>
+        </button>
+      </div>
 
-  <!-- O‘YIN YASHIRIN HOLATDA -->
-  <div class="memBody" id="memBody" hidden>
-    <h2>🧠 Hotirangizni Mustahkamlang</h2>
-    <p class="sub">Kartalarni ochib juftini toping. Darajani tanlang, rekordni yangilang 🔥</p>
-<!-- Ism kiritish -->
-<div class="memNameRow">
-  <input id="memName" class="memInput" type="text" placeholder="Ismingiz (masalan: Bobur)" maxlength="18" />
-  <span class="pill">⏳ Qolgan vaqt: <b id="memTime">00:00</b></span>
-</div>
+      <div class="memBody" id="memBody" hidden>
+        <h2>🧠 Hotirangizni Mustahkamlang</h2>
+        <p class="sub">Kartalarni ochib juftini toping. Darajani tanlang, rekordni yangilang 🔥</p>
 
-<!-- Reyting -->
-<div class="memRating">
-  <div class="memRatingTop">
-    <h3>🏆 Reyting (Top 10)</h3>
-    <span class="pill">Daraja: <b id="memLevelLabel">O'rta (4×4)</b></span>
-  </div>
-  <ol id="memLeaderboard" class="memList"></ol>
-  <div class="tiny">Natijalar brauzerda (localStorage) saqlanadi.</div>
-</div>
+        <!-- ISM + VAQT + REKORD -->
+        <div class="memProTop">
+          <input id="memName" class="memSelect" type="text" placeholder="Ismingiz (masalan: Bobur)" maxlength="20">
 
-   
+          <span class="pill">⏳ Qolgan vaqt: <b id="memTime">00:00</b></span>
+          <span class="pill">🏆 Rekord: <b id="memBest">—</b></span>
 
-    <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
-  </div>
-</section>
+          <select id="memLevel" class="memSelect" aria-label="Darajani tanlash">
+            <option value="easy">Oson (3×4)</option>
+            <option value="medium" selected>O'rta (4×4)</option>
+            <option value="hard">Qiyin (5×4)</option>
+          </select>
 
+          <button class="memBtn" id="memStart">Boshlash / Qayta</button>
+          <button class="memBtn" id="memSound">🔊 Ovoz: Bor</button>
+          <button class="memBtn" id="memClear">Natijani tozalash</button>
+        </div>
 
-    <!-- Aloqa -->
+        <!-- REYTING -->
+        <div class="memRating">
+          <div class="memRatingTop">
+            <h3>🏆 Reyting (Top 10)</h3>
+            <span class="pill">Daraja: <b id="memLevelLabel">O'rta (4×4)</b></span>
+          </div>
+          <ol id="memLeaderboard" class="memList"></ol>
+          <div class="tiny">Natijalar brauzerda (localStorage) saqlanadi.</div>
+        </div>
+
+        <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
+      </div>
+    </section>
+
+    <!-- ALOQA -->
     <section class="glass section" id="aloqa">
       <h2>Aloqa</h2>
       <p class="sub">Murojaat uchun</p>
 
       <div class="socials">
-<a class="sbtn" href="https://t.me/bobur_akramoov" target="_blank" rel="noopener">
-  <span class="ico" aria-hidden="true">
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-      <path d="M21.8 4.6c.2-1-.7-1.8-1.7-1.4L2.9 10.2c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.8c.3 1 1.6 1.2 2.1.4l2.7-4.1 4.9 3.6c.8.6 2 .2 2.2-.9L21.8 4.6Z"
-        stroke="currentColor" stroke-width="1.7"/>
-      <path d="M7.6 13.8 20 6.1"
-        stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-    </svg>
-  </span>
-  <span class="smeta"><b>Telegram</b><span>@bobur_akramoov</span></span>
-</a>
-<a class="sbtn" href="https://youtube.com/@akramovbobur4102" target="_blank" rel="noopener">
-  <span class="ico" aria-hidden="true">
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-      <path d="M21.6 7.2c.2.8.4 2 .4 4.8s-.2 4-.4 4.8c-.2.9-1 1.6-1.9 1.8
-        -1.6.4-7.7.4-7.7.4s-6.1 0-7.7-.4c-.9-.2-1.7-.9-1.9-1.8
-        C2.2 15.9 2 14.7 2 12s.2-3.9.4-4.8c.2-.9 1-1.6 1.9-1.8
-        C5.9 5 12 5 12 5s6.1 0 7.7.4c.9.2 1.7.9 1.9 1.8Z"
-        stroke="currentColor" stroke-width="1.7"/>
-      <path d="M10.3 9.7v4.6l4-2.3-4-2.3Z" fill="currentColor"/>
-    </svg>
-  </span>
-  <span class="smeta"><b>YouTube</b><span>@akramovbobur4102</span></span>
-</a>
-<a class="sbtn" href="https://facebook.com/bobur_akramoov" target="_blank" rel="noopener">
-  <span class="ico" aria-hidden="true">
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-      <path d="M13.5 21v-7h2.4l.4-3h-2.8V9.3c0-.9.3-1.5 1.6-1.5h1.3V5.2
-        c-.6-.1-1.6-.2-2.7-.2-2.7 0-4.5 1.6-4.5 4.5V11H6.6v3h2.6v7h4.3Z"/>
-    </svg>
-  </span>
-  <span class="smeta"><b>Facebook</b><span>@bobur_akramoov</span></span>
-</a>
+        <a class="sbtn" href="https://t.me/bobur_akramoov" target="_blank" rel="noopener">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+              <path d="M21.8 4.6c.2-1-.7-1.8-1.7-1.4L2.9 10.2c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.8c.3 1 1.6 1.2 2.1.4l2.7-4.1 4.9 3.6c.8.6 2 .2 2.2-.9L21.8 4.6Z"
+                stroke="currentColor" stroke-width="1.7"/>
+              <path d="M7.6 13.8 20 6.1"
+                stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="smeta"><b>Telegram</b><span>@bobur_akramoov</span></span>
+        </a>
 
-        
+        <a class="sbtn" href="https://youtube.com/@akramovbobur4102" target="_blank" rel="noopener">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+              <path d="M21.6 7.2c.2.8.4 2 .4 4.8s-.2 4-.4 4.8c-.2.9-1 1.6-1.9 1.8
+                -1.6.4-7.7.4-7.7.4s-6.1 0-7.7-.4c-.9-.2-1.7-.9-1.9-1.8
+                C2.2 15.9 2 14.7 2 12s.2-3.9.4-4.8c.2-.9 1-1.6 1.9-1.8
+                C5.9 5 12 5 12 5s6.1 0 7.7.4c.9.2 1.7.9 1.9 1.8Z"
+                stroke="currentColor" stroke-width="1.7"/>
+              <path d="M10.3 9.7v4.6l4-2.3-4-2.3Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="smeta"><b>YouTube</b><span>@akramovbobur4102</span></span>
+        </a>
+
+        <a class="sbtn" href="https://facebook.com/bobur_akramoov" target="_blank" rel="noopener">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M13.5 21v-7h2.4l.4-3h-2.8V9.3c0-.9.3-1.5 1.6-1.5h1.3V5.2
+                c-.6-.1-1.6-.2-2.7-.2-2.7 0-4.5 1.6-4.5 4.5V11H6.6v3h2.6v7h4.3Z"/>
+            </svg>
+          </span>
+          <span class="smeta"><b>Facebook</b><span>@bobur_akramoov</span></span>
+        </a>
       </div>
     </section>
 
