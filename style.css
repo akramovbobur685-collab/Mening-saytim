@@ -446,6 +446,10 @@ body{
   transform: translateY(0);
   transition: opacity .22s ease, transform .22s ease;
 }
+.tile, .sbtn{
+  touch-action: manipulation;
+}
+
 
 
 
