@@ -454,6 +454,52 @@ body{
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+/* =========================
+   LITE MODE (Performance)
+   ========================= */
+
+/* 1) Telefonlarda blur'ni pasaytiramiz */
+@media (max-width: 520px){
+  .glass{
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* 2) Bloblar eng og‘ir narsa: mobilga yengil qilamiz */
+  .blob{
+    filter: blur(28px);      /* 55px -> 28px */
+    opacity: .18;
+    animation: none;         /* animatsiya o'chadi */
+  }
+
+  /* 3) Juda katta soyani ham biroz yengillatamiz */
+  :root{
+    --shadow: 0 14px 42px rgba(0,0,0,.38);
+  }
+}
+
+/* 4) will-change ko‘p elementda bo‘lsa qotiradi — o‘chirib yuboramiz */
+.tile, .sbtn, .project-card, .memBtn, .memToggle, .bot-link{
+  will-change: auto;
+}
+
+/* 5) Hover animatsiyani mobilga soddalashtirish */
+@media (hover: none){
+  .tile:hover, .sbtn:hover, .project-card:hover{
+    transform: none;
+  }
+}
+
+/* 6) Kimda reduce motion yoqilgan bo‘lsa animatsiyalarni o‘chir */
+@media (prefers-reduced-motion: reduce){
+  *{
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .blob{ display:none; }
+}
+
 
 
 
