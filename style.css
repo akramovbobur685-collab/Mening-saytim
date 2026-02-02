@@ -434,6 +434,19 @@ footer{
   outline: none;
   box-shadow: 0 0 0 3px rgba(79,124,255,.25);
 }
+/* page transition */
+body.page-fade{
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .22s ease, transform .22s ease;
+}
+
+body{
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .22s ease, transform .22s ease;
+}
+
 
 
 
