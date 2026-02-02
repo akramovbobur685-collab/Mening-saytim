@@ -499,6 +499,22 @@ body{
   }
   .blob{ display:none; }
 }
+/* Pastdagi bo'sh joyni yo'qotish */
+.wrap{
+  padding-bottom: 0 !important;
+}
+
+footer{
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Mobil brauzerlar ba'zan extra scroll beradi */
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
 
 
 
