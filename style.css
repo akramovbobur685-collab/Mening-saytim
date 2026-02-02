@@ -416,6 +416,25 @@ footer{
 }
 
 .memList b{ color: var(--text); }
+/* --- Liquid click feel --- */
+.tile, .sbtn, .project-card, .memBtn, .memToggle, .bot-link{
+  will-change: transform, filter, opacity;
+  transition: transform .18s ease, filter .18s ease, background .18s ease, opacity .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* bosilgandagi “press” */
+.tile:active, .sbtn:active, .project-card:active, .memBtn:active, .memToggle:active, .bot-link:active{
+  transform: scale(0.98);
+  filter: brightness(1.08);
+}
+
+/* klaviatura bilan bosilganda chiroyli ring */
+.tile:focus-visible, .sbtn:focus-visible, .project-card:focus-visible, .memBtn:focus-visible, .memToggle:focus-visible, .bot-link:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79,124,255,.25);
+}
+
 
 
 
