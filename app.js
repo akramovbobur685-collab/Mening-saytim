@@ -30,6 +30,8 @@ function showToast(text){
   function next(){ setActive((idx + 1) % imgs.length); }
   function start(){ stop(); timer = setInterval(next, 2800); }
   function stop(){ if(timer) clearInterval(timer); timer = null; }
+// boshqa joydan to'xtatish uchun global chiqazamiz
+window.__memStopTimer = stopTimer;
 
   if(dotsWrap){
     dotsWrap.innerHTML = "";
@@ -433,6 +435,7 @@ function showToast(text){
     }, 180);
   });
 })();
+
 
 
 
