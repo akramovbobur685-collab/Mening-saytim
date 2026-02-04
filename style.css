@@ -80,7 +80,27 @@ body.page-fade{
 .glass{
   background: rgba(255,255,255,.08);
   border: 1px solid var(--stroke);
+/* ===== Sectionsni bo'lib turadigan joyni yo'qotish (stack) ===== */
 
+/* Glass bloklar orasidagi bo'shliqni 0 qilamiz */
+.glass.section{ margin-top: 0; }
+
+/* Ketma-ket kelgan glass'larda tepagi border va radiusni olib tashlaymiz */
+.glass + .glass{
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 0;
+}
+
+/* Ketma-ket bo'lsa pastdagi radiusni ham tekislaymiz (uzluksiz ko'rinadi) */
+.glass:not(:last-of-type){
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Section ichidagi padding qolsin, lekin bo'limlar orasida ajralish ko'rinmasin */
+.section{ padding-top: 18px; }
   /* BLURni o‘chir */
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -409,6 +429,7 @@ html, body{
     padding-bottom: 0 !important;
   }
 }
+
 
 
 
