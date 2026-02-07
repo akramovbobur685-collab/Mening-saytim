@@ -469,6 +469,25 @@ html, body{
   pointer-events:none;
 }
 
+/* FIX: matnlar oq bo‘lsin (qorayib ketmasin) */
+:root{
+  --text:#eaf1ff;
+  --muted:rgba(234,241,255,.78);
+}
+
+body{ color: var(--text) !important; }
+
+h1,h2,h3,
+.brand, .nav a,
+.tile, .tile h3,
+.sbtn, .smeta b,
+.section, footer{
+  color: var(--text) !important;
+}
+
+p, .lead, .sub, .tiny, .smeta span, .tag, .pill{
+  color: var(--muted) !important;
+}
 
 
 
