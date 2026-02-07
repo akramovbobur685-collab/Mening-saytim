@@ -1,4 +1,4 @@
-:root{
+8:root{
   --bg:#050811;
   --text:#eaf1ff;
   --muted:rgba(234,241,255,.78);
@@ -451,6 +451,32 @@ html, body{
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }
+/* ===== BO'LIM ORQASIDAGI SHAFFOF "GLASS"NI O'CHIRISH ===== */
+/* Hero va section bo'limlarining o'zi fon/border/blur olmasin */
+.glass.hero,
+.glass.section{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: visible !important;
+}
+
+/* glassning ichidagi highlight (after) ham yo'qolsin */
+.glass.hero::after,
+.glass.section::after{
+  display: none !important;
+}
+
+/* Bo'limlar orasidagi ajratishni ham yo'qotamiz */
+.section{
+  margin-top: 0 !important;
+}
+
+/* Yaxshi ko'rinish uchun ozgina padding qoldiramiz (xohlasang kamaytirasan) */
+.hero{ padding: 10px 0 !important; }
+.section{ padding: 14px 0 !important; }
 
 
 
