@@ -467,16 +467,7 @@ html, body{
 .glass.hero::after,
 .glass.section::after{
   display: none !important;
-}
 
-/* Bo'limlar orasidagi ajratishni ham yo'qotamiz */
-.section{
-  margin-top: 0 !important;
-}
-
-/* Yaxshi ko'rinish uchun ozgina padding qoldiramiz (xohlasang kamaytirasan) */
-.hero{ padding: 10px 0 !important; }
-.section{ padding: 14px 0 !important; }
 
 
 
