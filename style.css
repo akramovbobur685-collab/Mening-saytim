@@ -438,30 +438,12 @@ html, body{
   margin-top: 0 !important;
 }
 
-/* ketma-ket glass bloklar bir-biriga yopishsin */
-.glass + .glass{
-  margin-top: 0 !important;
-  border-top: 0 !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-}
-
 /* o'rtadagi bloklarning pastki radiusini tekislash */
 .glass:not(:last-of-type){
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }
-/* ===== BO'LIM ORQASIDAGI SHAFFOF "GLASS"NI O'CHIRISH ===== */
-/* Hero va section bo'limlarining o'zi fon/border/blur olmasin */
-.glass.hero,
-.glass.section{
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  overflow: visible !important;
-}
+
 
 
 
