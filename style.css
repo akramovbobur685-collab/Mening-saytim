@@ -429,20 +429,7 @@ html, body{
     padding-bottom: 0 !important;
   }
 }
-/* ===== BO'LIMLARNI AJRATIB TURGAN JOYNI YO'QOTISH (FORCE) ===== */
-.section{
-  margin-top: 0 !important;   /* mana shu asosiy sabab edi */
-}
 
-.glass{
-  margin-top: 0 !important;
-}
-
-/* o'rtadagi bloklarning pastki radiusini tekislash */
-.glass:not(:last-of-type){
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-}
 
 
 
