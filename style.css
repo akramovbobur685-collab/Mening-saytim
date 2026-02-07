@@ -429,7 +429,44 @@ html, body{
     padding-bottom: 0 !important;
   }
 }
+.glass.hero,
+.glass.section{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: visible !important;
+}
 
+.glass.hero::after,
+.glass.section::after{
+  display: none !important;
+}
+
+.section{
+  margin-top: 0 !important;
+}
+
+.hero{ padding: 10px 0 !important; }
+.section{ padding: 14px 0 !important; }
+.glass{
+  background:linear-gradient(180deg,var(--glass),var(--glass2));
+  border:1px solid var(--stroke);
+  border-radius:var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position:relative;
+  overflow:hidden;
+}
+
+.glass::after{
+  content:"";
+  position:absolute; inset:-2px;
+  background:radial-gradient(700px 260px at 28% 0%, rgba(255,255,255,.14), transparent 60%);
+  pointer-events:none;
+}
 
 
 
