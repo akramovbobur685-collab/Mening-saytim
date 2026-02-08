@@ -1,8 +1,6 @@
-
-
 // ===============================
 // Bobur Akramov — app.js (clean)
-// Modal + Memory Game (name + countdown + leaderboard)
+// Inline panel + Memory Game (name + countdown + leaderboard)
 // ===============================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,53 +18,44 @@ document.addEventListener("DOMContentLoaded", () => {
     clearTimeout(window.__to);
     window.__to = setTimeout(() => (t.style.display = "none"), 2400);
   }
-  window.showToast = showToast; // kerak bo'lsa boshqa joydan chaqiriladi
 
   // ===============================
-  // 1) MEMORY MODAL OPEN/CLOSE
+  // 1) MEMORY PANEL OPEN/CLOSE (inline)
   // ===============================
   const memBtn = document.getElementById("memToggle");
-  const memModal = document.getElementById("memModal");
-  const memOverlay = document.getElementById("memOverlay");
-  const memClose = document.getElementById("memClose");
-
-  if (!memBtn || !memModal) {
-    console.log("memToggle yoki memModal topilmadi");
-    return;
-  }
-
-  function openModal() {
-    memModal.hidden = false;
-    document.body.classList.add("modal-open");
-    setTimeout(() => document.getElementById("memName")?.focus(), 50);
-
-    // modal ochilganda o'yin init bo'lsin (1 marta)
-    initMemoryGameOnce();
-  }
-
-  function closeModal() {
-    memModal.hidden = true;
-    document.body.classList.remove("modal-open");
-  }
-
-  memBtn.addEventListener("click", openModal);
-  memOverlay?.addEventListener("click", closeModal);
-  memClose?.addEventListener("click", closeModal);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !memModal.hidden) closeModal();
-  });
-
-  // ===============================
-  // 2) MEMORY GAME (INIT ONCE)
-  // ===============================
+  const memPanel = document.getElementById("memPanel"); // panel div
   let memInited = false;
-  function initMemoryGameOnce() {
-    if (memInited) return;
-    memInited = true;
-    initMemoryGame();
+
+  function openPanel() {
+    if (!memPanel) return;
+    memPanel.hidden = false;
+    memBtn?.setAttribute("aria-expanded", "true");
+
+    // birinchi marta ochilganda init
+    if (!memInited) {
+      memInited = true;
+      initMemoryGame();
+    }
+
+    setTimeout(() => document.getElementById("memName")?.focus(), 60);
   }
 
+  function closePanel() {
+    if (!memPanel) return;
+    memPanel.hidden = true;
+    memBtn?.setAttribute("aria-expanded", "false");
+  }
+
+  if (memBtn && memPanel) {
+    memBtn.addEventListener("click", () => {
+      if (memPanel.hidden) openPanel();
+      else closePanel();
+    });
+  }
+
+  // ===============================
+  // 2) MEMORY GAME
+  // ===============================
   function initMemoryGame() {
     const grid = document.getElementById("memGrid");
     if (!grid) return;
@@ -89,11 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const EMOJIS = ["🍎","🍌","🍇","🍓","🍍","🥝","🍒","🥥","🍉","🍑","🍋","🍊","🍪","🍩","🍫","🍿","🐱","🐶","🦊","🐼","🐸","🐵","🦁","🐯"];
 
-    // Storage keys
     const BEST_KEY = (level) => `mem_best_${level}_time_v4`;
     const LB_KEY = "mem_leaderboard_v4";
 
-    // State
     let first = null;
     let lock = false;
     let doneCount = 0;
@@ -105,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let soundOn = true;
     let audioCtx = null;
 
-    // Helpers
     const fmt = (sec) => {
       const m = Math.floor(sec / 60);
       const s = sec % 60;
@@ -378,14 +364,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btnClear?.addEventListener("click", () => {
       const level = selLevel?.value || "medium";
-
-      // best clear
       localStorage.removeItem(BEST_KEY(level));
-
-      // leaderboard clear only for level
       const list = readLB().filter((x) => x.level !== level);
       writeLB(list);
-
       setBest(level);
       updateLeaderboard(level);
       showToast("Natijalar tozalandi ✅");
@@ -400,4 +381,3 @@ document.addEventListener("DOMContentLoaded", () => {
     if (elTime) elTime.textContent = fmt(LEVELS[startLevel].limitSec);
   }
 });
-
