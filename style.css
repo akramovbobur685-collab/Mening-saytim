@@ -508,6 +508,33 @@ p, .lead, .sub, .tiny, .smeta span, .tag, .pill{
     margin: 0 auto;
     padding: 20px;
 }
+/* =========================
+   Layout padding fix (PC + Mobile)
+   ========================= */
+
+/* Umumiy konteyner: chekkadan nafas */
+.wrap{
+  max-width: 1100px;            /* xohlasang 1050 qolsin */
+  margin: 0 auto;
+  padding: 28px 28px 22px;      /* chap-o'ng ko‘paydi */
+}
+
+/* Bo‘limlar ichidagi paddingni biroz oshiramiz */
+.hero{ padding: 26px; }
+.section{ padding: 22px; }
+
+/* Navbar va yuqori qism chekkaga yopishmasin */
+.top{
+  padding: 14px 6px 10px;
+}
+
+/* Mobilga yanada qulay */
+@media (max-width: 520px){
+  .wrap{ padding: 18px 16px 16px; }
+  .hero{ padding: 18px; }
+  .section{ padding: 16px; }
+}
+
 
 
 
