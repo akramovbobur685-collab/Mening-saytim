@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -7,7 +6,6 @@
   <title>Bobur Akramov</title>
 
   <link rel="stylesheet" href="style.css">
-  <!-- Avatar tez chiqishi uchun -->
   <link rel="preload" as="image" href="img/me1.jpg">
 </head>
 
@@ -92,52 +90,18 @@
       </div>
     </section>
 
-    <!-- MEMORY -->
-<section class="glass section" id="memory">
-  <div class="memHeader">
-    <div>
-      <h2>🧠 Hotira o‘yini</h2>
-      <p class="sub">Tugmani bosing — o‘yin ichki oynada ochiladi.</p>
-    </div>
-<button class="memToggle" id="memToggle" type="button">
-  🧠 Hotirangizni mustahkamlang
-</button>
-    </button>
-  </div>
-</section>
+    <!-- MEMORY (tugma) -->
+    <section class="glass section" id="memory">
+      <div class="memHeader">
+        <div>
+          <h2>🧠 Hotira o‘yini</h2>
+          <p class="sub">Tugmani bosing — o‘yin ichki oynada ochiladi.</p>
+        </div>
 
-  <!-- O‘YIN YASHIRIN -->
-  <div class="memBody" id="memBody" hidden>
-    <div class="memProTop">
-      <input id="memName" class="memInput" type="text" placeholder="Ismingiz (masalan: Bobur)" maxlength="18" />
-
-      <select id="memLevel" class="memSelect" aria-label="Darajani tanlash">
-        <option value="easy">Oson (3×4) — 2:00</option>
-        <option value="medium" selected>O‘rta (4×4) — 4:00</option>
-        <option value="hard">Qiyin (5×4) — 5:00</option>
-      </select>
-
-      <span class="pill">⏳ Qolgan vaqt: <b id="memTime">00:00</b></span>
-      <span class="pill">🏆 Rekord: <b id="memBest">—</b></span>
-
-      <button class="memBtn" id="memStart" type="button">Boshlash / Qayta</button>
-      <button class="memBtn" id="memSound" type="button">🔊 Ovoz: Bor</button>
-      <button class="memBtn" id="memClear" type="button">Natijani tozalash</button>
-    </div>
-
-    <div class="memRating">
-      <div class="memRatingTop">
-        <h3>🏆 Reyting (Top 10)</h3>
-        <span class="pill">Daraja: <b id="memLevelLabel">O‘rta (4×4)</b></span>
+        <button class="memToggle" id="memToggle" type="button">
+          🧠 Hotirangizni mustahkamlang
+        </button>
       </div>
-      <ol id="memLeaderboard" class="memList"></ol>
-      <div class="tiny">Natijalar brauzerda saqlanadi (localStorage).</div>
-    </div>
-
-    <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
-  </div>
-</section>
-
     </section>
 
     <!-- ALOQA -->
@@ -149,10 +113,8 @@
         <a class="sbtn" href="https://t.me/bobur_akramoov" target="_blank" rel="noopener">
           <span class="ico" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-              <path d="M21.8 4.6c.2-1-.7-1.8-1.7-1.4L2.9 10.2c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.8c.3 1 1.6 1.2 2.1.4l2.7-4.1 4.9 3.6c.8.6 2 .2 2.2-.9L21.8 4.6Z"
-                stroke="currentColor" stroke-width="1.7"/>
-              <path d="M7.6 13.8 20 6.1"
-                stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M21.8 4.6c.2-1-.7-1.8-1.7-1.4L2.9 10.2c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.8c.3 1 1.6 1.2 2.1.4l2.7-4.1 4.9 3.6c.8.6 2 .2 2.2-.9L21.8 4.6Z" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M7.6 13.8 20 6.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
             </svg>
           </span>
           <span class="smeta"><b>Telegram</b><span>@bobur_akramoov</span></span>
@@ -161,11 +123,7 @@
         <a class="sbtn" href="https://youtube.com/@akramovbobur4102" target="_blank" rel="noopener">
           <span class="ico" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-              <path d="M21.6 7.2c.2.8.4 2 .4 4.8s-.2 4-.4 4.8c-.2.9-1 1.6-1.9 1.8
-                -1.6.4-7.7.4-7.7.4s-6.1 0-7.7-.4c-.9-.2-1.7-.9-1.9-1.8
-                C2.2 15.9 2 14.7 2 12s.2-3.9.4-4.8c.2-.9 1-1.6 1.9-1.8
-                C5.9 5 12 5 12 5s6.1 0 7.7.4c.9.2 1.7.9 1.9 1.8Z"
-                stroke="currentColor" stroke-width="1.7"/>
+              <path d="M21.6 7.2c.2.8.4 2 .4 4.8s-.2 4-.4 4.8c-.2.9-1 1.6-1.9 1.8-1.6.4-7.7.4-7.7.4s-6.1 0-7.7-.4c-.9-.2-1.7-.9-1.9-1.8C2.2 15.9 2 14.7 2 12s.2-3.9.4-4.8c.2-.9 1-1.6 1.9-1.8C5.9 5 12 5 12 5s6.1 0 7.7.4c.9.2 1.7.9 1.9 1.8Z" stroke="currentColor" stroke-width="1.7"/>
               <path d="M10.3 9.7v4.6l4-2.3-4-2.3Z" fill="currentColor"/>
             </svg>
           </span>
@@ -175,8 +133,7 @@
         <a class="sbtn" href="https://facebook.com/bobur_akramoov" target="_blank" rel="noopener">
           <span class="ico" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-              <path d="M13.5 21v-7h2.4l.4-3h-2.8V9.3c0-.9.3-1.5 1.6-1.5h1.3V5.2
-                c-.6-.1-1.6-.2-2.7-.2-2.7 0-4.5 1.6-4.5 4.5V11H6.6v3h2.6v7h4.3Z"/>
+              <path d="M13.5 21v-7h2.4l.4-3h-2.8V9.3c0-.9.3-1.5 1.6-1.5h1.3V5.2c-.6-.1-1.6-.2-2.7-.2-2.7 0-4.5 1.6-4.5 4.5V11H6.6v3h2.6v7h4.3Z"/>
             </svg>
           </span>
           <span class="smeta"><b>Facebook</b><span>@bobur_akramoov</span></span>
@@ -192,7 +149,46 @@
 
   <div class="toast" id="toast"><span class="okdot"></span><span id="toastText"></span></div>
 
-  <script src="app.js"></script>
+  <!-- MEMORY MODAL -->
+  <div class="memModal" id="memModal" hidden>
+    <div class="memOverlay" id="memOverlay"></div>
 
+    <div class="memDialog glass" role="dialog" aria-modal="true" aria-label="Hotira o‘yini">
+      <div class="memModalTop">
+        <b>🧠 Hotira o‘yini</b>
+        <button class="memClose" id="memClose" type="button" aria-label="Yopish">✕</button>
+      </div>
+
+      <div class="memProTop">
+        <input id="memName" class="memInput" type="text" placeholder="Ismingiz (masalan: Bobur)" maxlength="18" />
+
+        <select id="memLevel" class="memSelect" aria-label="Darajani tanlash">
+          <option value="easy">Oson (3×4) — 2:00</option>
+          <option value="medium" selected>O‘rta (4×4) — 4:00</option>
+          <option value="hard">Qiyin (5×4) — 5:00</option>
+        </select>
+
+        <span class="pill">⏳ Qolgan vaqt: <b id="memTime">00:00</b></span>
+        <span class="pill">🏆 Rekord: <b id="memBest">—</b></span>
+
+        <button class="memBtn" id="memStart" type="button">Boshlash / Qayta</button>
+        <button class="memBtn" id="memSound" type="button">🔊 Ovoz: Bor</button>
+        <button class="memBtn" id="memClear" type="button">Natijani tozalash</button>
+      </div>
+
+      <div class="memRating">
+        <div class="memRatingTop">
+          <h3>🏆 Reyting (Top 10)</h3>
+          <span class="pill">Daraja: <b id="memLevelLabel">O‘rta (4×4)</b></span>
+        </div>
+        <ol id="memLeaderboard" class="memList"></ol>
+        <div class="tiny">Natijalar brauzerda saqlanadi (localStorage).</div>
+      </div>
+
+      <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
