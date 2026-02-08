@@ -13,16 +13,44 @@ function showToast(text){
 }
 
 // ---------- MEMORY GAME (COUNTDOWN + NAME + LEADERBOARD + TOGGLE) ----------
+,// ---------- MEMORY MODAL OPEN/CLOSE ----------
 (function(){
-  const toggleBtn = document.getElementById("memToggle");
-  const body = document.getElementById("memBody");
+  const btn = document.getElementById("memToggle");
+  const modal = document.getElementById("memModal");
+  const overlay = document.getElementById("memOverlay");
+  const closeBtn = document.getElementById("memClose");
 
-  // Toggle UI (ichida ochilsin)
-  if(toggleBtn && body){
-    toggleBtn.addEventListener("click", ()=>{
-      const open = toggleBtn.getAttribute("aria-expanded") === "true";
-      toggleBtn.setAttribute("aria-expanded", String(!open));
-      body.hidden = open; // true bo'lsa yopamiz
+  let inited = false;
+
+  function openModal(){
+    if(!modal) return;
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+
+    if(!inited){
+      inited = true;
+      // bu funksiya sening memory init'ing bo'lsa ishlaydi
+      // pastdagi initGame() koding o'sha joyda turadi
+    }
+
+    // ism inputga fokus
+    setTimeout(()=> document.getElementById("memName")?.focus(), 60);
+  }
+
+  function closeModal(){
+    if(!modal) return;
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+  }
+
+  btn?.addEventListener("click", openModal);
+  closeBtn?.addEventListener("click", closeModal);
+  overlay?.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && modal && !modal.hidden) closeModal();
+  });
+})();
       if(!open){
         // birinchi marta ochilganda init bo'lsin
         initOnce();
@@ -371,3 +399,4 @@ function showToast(text){
     if(elTime) elTime.textContent = fmt(LEVELS[startLevel].limitSec);
   }
 })();
+
