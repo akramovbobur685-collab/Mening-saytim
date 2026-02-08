@@ -1,3 +1,31 @@
+// ===== MEMORY MODAL (SAFE) =====
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("memToggle");
+  const modal = document.getElementById("memModal");
+  const overlay = document.getElementById("memOverlay");
+  const closeBtn = document.getElementById("memClose");
+
+  if (!btn || !modal) return; // topilmasa jim turadi
+
+  function openModal() {
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+  }
+
+  btn.addEventListener("click", openModal);
+  overlay?.addEventListener("click", closeModal);
+  closeBtn?.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) closeModal();
+  });
+});
+
 // Year
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -430,4 +458,5 @@ function showToast(text){
     if(e.key === "Escape" && !modal.hidden) closeModal();
   });
 })();
+
 
