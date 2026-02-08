@@ -536,6 +536,66 @@ p, .lead, .sub, .tiny, .smeta span, .tag, .pill{
   .hero{ padding: 18px; }
   .section{ padding: 16px; }
 }
+/* =========================
+   FULLSCREEN + RESPONSIVE CONTAINER
+   ========================= */
+
+/* 1) Sahifa kengligini to'liq ishlatish */
+html, body { width: 100%; }
+body { overflow-x: hidden; }
+
+/* 2) Full width, lekin chekkaga qadalmasin */
+.wrap{
+  width: min(1200px, 100%);   /* katta ekranda 1200px, kichikda 100% */
+  margin: 0 auto;
+  padding-inline: clamp(14px, 3vw, 34px); /* telefon 14px, PC 34px gacha */
+  padding-top: clamp(16px, 2.5vw, 28px);
+  padding-bottom: clamp(14px, 2vw, 24px);
+}
+
+/* 3) Glass bloklar ekran bo'ylab chiroyli tushsin */
+.glass{
+  width: 100%;
+}
+
+/* 4) Bo'lim ichidagi padding ham moslansin */
+.hero{ padding: clamp(16px, 2.2vw, 26px); }
+.section{ padding: clamp(14px, 2vw, 22px); }
+
+/* 5) Nav bar kichik ekranda qatorlarga tushsin */
+.top{
+  padding: 12px 0 10px;
+  gap: 12px;
+}
+.nav{
+  gap: 8px;
+}
+.nav a{
+  padding: 10px 12px;
+}
+
+/* 6) HERO grid: PCda 2 ustun, telefonda 1 ustun */
+.heroGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2vw, 18px);
+}
+@media (max-width: 900px){
+  .heroGrid{ grid-template-columns: 1fr; }
+}
+
+/* 7) Kartalar va socials chekkaga yopishmasin */
+.grid, .socials{
+  gap: clamp(10px, 1.6vw, 14px);
+}
+
+/* 8) Telefonlarda matn juda katta bo'lib ketmasin */
+h1{
+  font-size: clamp(30px, 4.2vw, 46px);
+}
+.section h2{
+  font-size: clamp(20px, 2.4vw, 26px);
+}
 
 
 
