@@ -92,17 +92,52 @@
 
     <!-- MEMORY (tugma) -->
     <section class="glass section" id="memory">
-      <div class="memHeader">
-        <div>
-          <h2>🧠 Hotira o‘yini</h2>
-          <p class="sub">Tugmani bosing — o‘yin ichki oynada ochiladi.</p>
-        </div>
+  <div class="memHeader">
+    <div>
+      <h2>🧠 Hotira o‘yini</h2>
+      <p class="sub">Tugmani bosing — o‘yin shu yerning ichida ochiladi.</p>
+    </div>
 
-        <button class="memToggle" id="memToggle" type="button">
-          🧠 Hotirangizni mustahkamlang
-        </button>
+    <button class="memToggle" id="memToggle" type="button" aria-expanded="false">
+      🧠 Hotirangizni mustahkamlang
+      <span class="chev" aria-hidden="true">▾</span>
+    </button>
+  </div>
+
+  <!-- Ichki oynacha (panel) -->
+  <div class="memPanel" id="memPanel" hidden>
+    <div class="memPanelInner">
+      <div class="memProTop">
+        <input id="memName" class="memInput" type="text" placeholder="Ismingiz (masalan: Bobur)" maxlength="18" />
+
+        <select id="memLevel" class="memSelect" aria-label="Darajani tanlash">
+          <option value="easy">Oson (3×4) — 2:00</option>
+          <option value="medium" selected>O‘rta (4×4) — 4:00</option>
+          <option value="hard">Qiyin (5×4) — 5:00</option>
+        </select>
+
+        <span class="pill">⏳ Qolgan vaqt: <b id="memTime">00:00</b></span>
+        <span class="pill">🏆 Rekord: <b id="memBest">—</b></span>
+
+        <button class="memBtn" id="memStart" type="button">Boshlash / Qayta</button>
+        <button class="memBtn" id="memSound" type="button">🔊 Ovoz: Bor</button>
+        <button class="memBtn" id="memClear" type="button">Natijani tozalash</button>
       </div>
-    </section>
+
+      <div class="memRating">
+        <div class="memRatingTop">
+          <h3>🏆 Reyting (Top 10)</h3>
+          <span class="pill">Daraja: <b id="memLevelLabel">O‘rta (4×4)</b></span>
+        </div>
+        <ol id="memLeaderboard" class="memList"></ol>
+        <div class="tiny">Natijalar brauzerda saqlanadi (localStorage).</div>
+      </div>
+
+      <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
+    </div>
+  </div>
+</section>
+
 
     <!-- ALOQA -->
     <section class="glass section" id="aloqa">
