@@ -74,7 +74,9 @@ body.page-fade{
   50%{transform:translate(24px,14px) scale(1.05)}
 }
 .wrap{
-  padding-bottom: 0 !important;
+  padding-bottom: 16px !important; /* 0 emas */
+}
+
 }
 
 
@@ -534,6 +536,7 @@ p, .lead, .sub, .tiny, .smeta span, .tag, .pill{
   .hero{ padding: 18px; }
   .section{ padding: 16px; }
 }
+
 
 
 
