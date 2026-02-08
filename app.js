@@ -399,4 +399,35 @@ function showToast(text){
     if(elTime) elTime.textContent = fmt(LEVELS[startLevel].limitSec);
   }
 })();
+// ===== MEMORY MODAL OPEN/CLOSE (FIX) =====
+(function(){
+  const btn = document.getElementById("memToggle");
+  const modal = document.getElementById("memModal");
+  const overlay = document.getElementById("memOverlay");
+  const closeBtn = document.getElementById("memClose");
+
+  if(!btn || !modal){
+    console.log("memToggle yoki memModal topilmadi");
+    return;
+  }
+
+  function openModal(){
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    setTimeout(()=> document.getElementById("memName")?.focus(), 60);
+  }
+
+  function closeModal(){
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+  }
+
+  btn.addEventListener("click", openModal);
+  closeBtn?.addEventListener("click", closeModal);
+  overlay?.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && !modal.hidden) closeModal();
+  });
+})();
 
