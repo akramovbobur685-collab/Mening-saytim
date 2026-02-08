@@ -1,6 +1,6 @@
 // ===============================
-// Bobur Akramov — app.js (clean)
-// Inline panel + Memory Game (name + countdown + leaderboard)
+// Bobur Akramov — app.js (FINAL CLEAN)
+// Memory: accordion (memBody) + name + countdown + leaderboard
 // ===============================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,36 +20,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===============================
-  // 1) MEMORY PANEL OPEN/CLOSE (inline)
+  // 1) MEMORY OPEN/CLOSE (memBody)
   // ===============================
   const memBtn = document.getElementById("memToggle");
-  const memPanel = document.getElementById("memPanel"); // panel div
+  const memBody = document.getElementById("memBody"); // shu bo‘lishi shart
   let memInited = false;
 
-  function openPanel() {
-    if (!memPanel) return;
-    memPanel.hidden = false;
-    memBtn?.setAttribute("aria-expanded", "true");
-
-    // birinchi marta ochilganda init
-    if (!memInited) {
-      memInited = true;
-      initMemoryGame();
-    }
-
-    setTimeout(() => document.getElementById("memName")?.focus(), 60);
-  }
-
-  function closePanel() {
-    if (!memPanel) return;
-    memPanel.hidden = true;
-    memBtn?.setAttribute("aria-expanded", "false");
-  }
-
-  if (memBtn && memPanel) {
+  if (memBtn && memBody) {
     memBtn.addEventListener("click", () => {
-      if (memPanel.hidden) openPanel();
-      else closePanel();
+      const isOpen = !memBody.hidden;
+
+      memBody.hidden = isOpen; // toggle
+      memBtn.setAttribute("aria-expanded", String(!isOpen));
+
+      const chev = memBtn.querySelector(".chev");
+      if (chev) chev.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+
+      // birinchi marta ochilganda init
+      if (!isOpen && !memInited) {
+        memInited = true;
+        initMemoryGame();
+      }
+
+      if (!isOpen) setTimeout(() => document.getElementById("memName")?.focus(), 60);
     });
   }
 
@@ -71,15 +64,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const elLevelLabel = document.getElementById("memLevelLabel");
 
     const LEVELS = {
-      easy:   { cols: 3, pairs: 6,  limitSec: 120, label: "Oson (3×4)"  },
-      medium: { cols: 4, pairs: 8,  limitSec: 240, label: "O‘rta (4×4)" },
-      hard:   { cols: 5, pairs: 10, limitSec: 300, label: "Qiyin (5×4)" },
+      easy: { cols: 3, pairs: 6, limitSec: 120, label: "Oson (3×4)" },
+      medium: { cols: 4, pairs: 8, limitSec: 240, label: "O‘rta (4×4)" },
+      hard: { cols: 5, pairs: 10, limitSec: 300, label: "Qiyin (5×4)" },
     };
 
-    const EMOJIS = ["🍎","🍌","🍇","🍓","🍍","🥝","🍒","🥥","🍉","🍑","🍋","🍊","🍪","🍩","🍫","🍿","🐱","🐶","🦊","🐼","🐸","🐵","🦁","🐯"];
+    const EMOJIS = [
+      "🍎","🍌","🍇","🍓","🍍","🥝","🍒","🥥","🍉","🍑","🍋","🍊",
+      "🍪","🍩","🍫","🍿","🐱","🐶","🦊","🐼","🐸","🐵","🦁","🐯"
+    ];
 
-    const BEST_KEY = (level) => `mem_best_${level}_time_v4`;
-    const LB_KEY = "mem_leaderboard_v4";
+    const BEST_KEY = (level) => `mem_best_${level}_time_v5`;
+    const LB_KEY = `mem_leaderboard_v5`;
 
     let first = null;
     let lock = false;
@@ -277,8 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stopCountdown();
       beep("win");
 
-      const limit = LEVELS[level].limitSec;
-      const used = Math.max(0, limit - remaining);
+      const used = Math.max(0, LEVELS[level].limitSec - remaining);
 
       saveBestIfNeeded(level, used);
 
@@ -313,9 +308,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         first.classList.add("done", "match");
         card.classList.add("done", "match");
-        first.setAttribute("aria-disabled", "true");
-        card.setAttribute("aria-disabled", "true");
-
         doneCount += 2;
         beep("match");
 
@@ -381,54 +373,3 @@ document.addEventListener("DOMContentLoaded", () => {
     if (elTime) elTime.textContent = fmt(LEVELS[startLevel].limitSec);
   }
 });
-// MEMORY SHOW / HIDE
-(function(){
-
-  const btn = document.getElementById("memToggle");
-  const body = document.getElementById("memBody");
-
-  if(!btn || !body) return;
-
-  btn.addEventListener("click", ()=>{
-
-    const open = !body.hidden;
-
-    if(open){
-      body.hidden = true;
-      btn.querySelector(".chev").style.transform = "rotate(0deg)";
-    }
-    else{
-      body.hidden = false;
-      btn.querySelector(".chev").style.transform = "rotate(180deg)";
-    }
-
-  });
-
-})();
-// MEMORY SHOW / HIDE
-(function(){
-
-  const btn = document.getElementById("memToggle");
-  const body = document.getElementById("memBody");
-
-  if(!btn || !body) return;
-
-  btn.addEventListener("click", ()=>{
-
-    const open = !body.hidden;
-
-    if(open){
-      body.hidden = true;
-      btn.querySelector(".chev").style.transform = "rotate(0deg)";
-    }
-    else{
-      body.hidden = false;
-      btn.querySelector(".chev").style.transform = "rotate(180deg)";
-    }
-
-  });
-
-})();
-
-
-
