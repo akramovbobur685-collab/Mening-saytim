@@ -405,4 +405,30 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 })();
+// MEMORY SHOW / HIDE
+(function(){
+
+  const btn = document.getElementById("memToggle");
+  const body = document.getElementById("memBody");
+
+  if(!btn || !body) return;
+
+  btn.addEventListener("click", ()=>{
+
+    const open = !body.hidden;
+
+    if(open){
+      body.hidden = true;
+      btn.querySelector(".chev").style.transform = "rotate(0deg)";
+    }
+    else{
+      body.hidden = false;
+      btn.querySelector(".chev").style.transform = "rotate(180deg)";
+    }
+
+  });
+
+})();
+
+
 
