@@ -26,62 +26,6 @@ body{
   background: var(--bg);
   overflow-x: hidden;
 }
-.memHeader{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.memToggle{
-  padding:12px 14px;
-  border-radius:16px;
-  border:1px solid var(--stroke);
-  background: rgba(255,255,255,.06);
-  color: var(--text);
-  font-weight: 900;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  transition:.18s;
-}
-.memToggle:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
-.memToggle .chev{ transition: transform .2s ease; opacity:.8; }
-.memToggle[aria-expanded="true"] .chev{ transform: rotate(180deg); }
-
-.memBody{ margin-top: 14px; }
-
-.memInput{
-  flex:1 1 220px;
-  padding:12px 14px;
-  border-radius:14px;
-  border:1px solid var(--stroke);
-  background:rgba(255,255,255,.06);
-  color:var(--text);
-  outline:none;
-}
-.memInput::placeholder{ color: rgba(234,241,255,.55); }
-
-.memRating{
-  margin-top:14px;
-  padding:12px;
-  border-radius:18px;
-  border:1px solid var(--stroke);
-  background:rgba(255,255,255,.05);
-}
-.memRatingTop{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:8px;
-}
-.memList{ margin:0; padding-left:18px; }
-.memList li{ margin:8px 0; color:var(--muted); line-height:1.35; }
-.memList b{ color: var(--text); }
 
 /* FONNI SHU YERGA KO‘CHIRAMIZ */
 body{
@@ -132,10 +76,6 @@ body.page-fade{
 .wrap{
   padding-bottom: 16px !important; /* 0 emas */
 }
-
-}
-
-
 .glass{
   background: rgba(255,255,255,.08);
   border: 1px solid var(--stroke);
@@ -336,117 +276,7 @@ footer{
   background: rgba(255,255,255,0.05);
 }
 
-/* memory toggle */
-.memHeader{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.memToggle{
-  padding:12px 14px;
-  border-radius:16px;
-  border:1px solid var(--stroke);
-  background: rgba(255,255,255,.06);
-  color: var(--text);
-  font-weight: 900;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  transition: transform .18s ease, background .18s ease;
-}
-.memToggle:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
-.memToggle .chev{ transition: transform .2s ease; opacity:.8; }
-.memToggle[aria-expanded="true"] .chev{ transform: rotate(180deg); }
-.memBody{ margin-top: 14px; }
 
-/* memory controls + grid */
-.memProTop{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px;}
-.memSelect,.memBtn{
-  padding:10px 12px;
-  border-radius:14px;
-  border:1px solid var(--stroke);
-  background:rgba(255,255,255,.06);
-  color:var(--text);
-  outline:none;
-}
-.memBtn{
-  font-weight:900;
-  cursor:pointer;
-  transition: transform .18s ease, background .18s ease;
-}
-.memBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
-
-.memGrid{display:grid;gap:12px;margin-top:12px;}
-.memGrid.cols-3{grid-template-columns:repeat(3,1fr)}
-.memGrid.cols-4{grid-template-columns:repeat(4,1fr)}
-.memGrid.cols-5{grid-template-columns:repeat(5,1fr)}
-@media(max-width:520px){.memGrid.cols-5{grid-template-columns:repeat(4,1fr)}}
-
-.memCard{aspect-ratio:1/1;border-radius:18px;position:relative;cursor:pointer;user-select:none;perspective:900px;}
-.memCard[aria-disabled="true"]{cursor:default;opacity:.72}
-.memInner{position:absolute;inset:0;border-radius:18px;transform-style:preserve-3d;transition:transform .34s ease;}
-.memFace{position:absolute;inset:0;border-radius:18px;border:1px solid var(--stroke);backface-visibility:hidden;display:grid;place-items:center;}
-.memFront{background:rgba(255,255,255,.06);}
-.memFront::after{
-  content:""; width:34%; height:34%; border-radius:14px;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), rgba(255,255,255,.05));
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 12px 35px rgba(0,0,0,.28);
-}
-.memBack{transform:rotateY(180deg); background:linear-gradient(135deg, rgba(79,124,255,.16), rgba(139,92,246,.14));}
-.memEmoji{font-size:32px;filter:drop-shadow(0 10px 18px rgba(0,0,0,.35));}
-.memCard.open .memInner{transform:rotateY(180deg)}
-.memCard.done .memInner{transform:rotateY(180deg)}
-.memCard.match .memBack{animation: memGlow .55s ease}
-@keyframes memGlow{
-  0%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
-  50%{box-shadow:0 0 0 6px rgba(34,197,94,.22)}
-  100%{box-shadow:0 0 0 2px rgba(34,197,94,.35)}
-}
-.memCard.wrong{animation: memShake .32s ease}
-@keyframes memShake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-4px)}
-  100%{transform:translateX(0)}
-}
-
-/* rating list */
-.memRating{
-  margin-top:14px;
-  padding:12px;
-  border-radius:18px;
-  border:1px solid var(--stroke);
-  background:rgba(255,255,255,.05);
-}
-.memRatingTop{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:8px;
-}
-.memList{ margin:0; padding-left:18px; color:var(--text); }
-.memList li{ margin:8px 0; color:var(--muted); line-height:1.35; }
-.memList b{ color: var(--text); }
-
-/* liquid click feel (NO will-change -> less freeze) */
-.tile, .sbtn, .memBtn, .memToggle, .bot-link, .nav a{
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-.tile:active, .sbtn:active, .memBtn:active, .memToggle:active, .bot-link:active{
-  transform: scale(0.98);
-  filter: brightness(1.08);
-}
-.tile:focus-visible, .sbtn:focus-visible, .memBtn:focus-visible, .memToggle:focus-visible, .bot-link:focus-visible{
-  outline:none;
-  box-shadow: 0 0 0 3px rgba(79,124,255,.25);
 }
 
 /* performance: mobile lite */
@@ -652,46 +482,6 @@ h1{
 .section h2{
   font-size: clamp(20px, 2.4vw, 26px);
 }
-<!-- MEMORY MODAL -->
-<div class="memModal" id="memModal" hidden>
-  <div class="memOverlay" id="memOverlay"></div>
-
-  <div class="memDialog glass" role="dialog" aria-modal="true" aria-label="Hotira o‘yini">
-    <div class="memModalTop">
-      <b>🧠 Hotira o‘yini</b>
-      <button class="memClose" id="memClose" type="button" aria-label="Yopish">✕</button>
-    </div>
-
-    <!-- O‘YIN ICHI -->
-    <div class="memProTop">
-      <input id="memName" class="memInput" type="text" placeholder="Ismingiz (masalan: Bobur)" maxlength="18" />
-
-      <select id="memLevel" class="memSelect" aria-label="Darajani tanlash">
-        <option value="easy">Oson (3×4) — 2:00</option>
-        <option value="medium" selected>O‘rta (4×4) — 4:00</option>
-        <option value="hard">Qiyin (5×4) — 5:00</option>
-      </select>
-
-      <span class="pill">⏳ Qolgan vaqt: <b id="memTime">00:00</b></span>
-      <span class="pill">🏆 Rekord: <b id="memBest">—</b></span>
-
-      <button class="memBtn" id="memStart" type="button">Boshlash / Qayta</button>
-      <button class="memBtn" id="memSound" type="button">🔊 Ovoz: Bor</button>
-      <button class="memBtn" id="memClear" type="button">Natijani tozalash</button>
-    </div>
-
-    <div class="memRating">
-      <div class="memRatingTop">
-        <h3>🏆 Reyting (Top 10)</h3>
-        <span class="pill">Daraja: <b id="memLevelLabel">O‘rta (4×4)</b></span>
-      </div>
-      <ol id="memLeaderboard" class="memList"></ol>
-      <div class="tiny">Natijalar brauzerda saqlanadi (localStorage).</div>
-    </div>
-
-    <div id="memGrid" class="memGrid cols-4" aria-label="Memory grid"></div>
-  </div>
-</div>
 
 
 
